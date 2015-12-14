@@ -19,5 +19,8 @@ class IndexAction extends Action{
 	public function contactUs(){
 		$this->display();
 	}
-
+//会员中心
+	public function vipUser(){
+		$this->display();
+	}
 }

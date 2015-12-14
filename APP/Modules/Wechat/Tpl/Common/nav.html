@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.3.min.js"></script> 
+<style type="text/css"> 
+/* 浮动导航栏 Begin */ 
+#floatMenu 
+{ 
+padding-top: 5px; 
+border: 1px solid #dcdcdc; 
+position: absolute; 
+top: 150px; 
+left: 5px; 
+margin-left: 0px; 
+width: 86px; 
+} 
+#floatMenu ul 
+{ 
+margin-left: 0px; 
+background-color:White; 
+list-style-type: none; 
+padding:10px 
+
+} 
+#floatMenu ul li a 
+{ 
+display: block; 
+text-decoration: none; 
+color: #000; 
+} 
+#floatMenu ul li a:hover 
+{ 
+color: #fff; 
+background-color: #ff8000; 
+} 
+#floatMenu ul.menu1 li a:hover 
+{ 
+border-color: #09f; 
+} 
+/* 浮动导航栏 End */ 
+</style> 
+</head> 
+<body> 
+<div id="floatMenu"> 
+<ul class="menu1"> 
+<li><a href="{:U(GROUP_NAME.'/Index/homepage')}"> 首页</a></li> 
+<li><a href="{:U(GROUP_NAME.'/Index/jiehunji')}"> 结婚季</a></li> 
+<li><a href="#" onclick="return false;">Product</a></li> 
+<li><a href="#" onclick="return false;">Contact</a></li> 
+</ul> 
+</div> 
+<script type="text/javascript"> 
+var name = "#floatMenu"; 
+var menuYloc = null; 
+$(document).ready(function() { 
+menuYloc = parseInt($(name).css("top").substring(0, $(name).css("top").indexOf("px"))) 
+$(window).scroll(function() { 
+offset = menuYloc + $(document).scrollTop() + "px"; 
+$(name).animate({ top: offset }, { duration: 100, queue: false }); 
+}); 
+}); 
+</script> 
+</body> 
+</html>

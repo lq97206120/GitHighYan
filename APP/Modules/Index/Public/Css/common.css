@@ -4,7 +4,7 @@ html{ font-family:"microsoft yahei",arial;
 	font-size:100%;}
 body{margin:0;}
 img{max-width:100%;}
-li{list-display:none;}
+li{list-style:none;}
 /*title*/
 .title{height:15%;
 		margin:0;}

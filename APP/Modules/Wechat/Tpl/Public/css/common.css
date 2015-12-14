@@ -1,0 +1,13 @@
+/**html { overflow-x: hidden; overflow-y: hidden; } **/
+frame { overflow:scroll;overflow-x: hidden;overflow-y: hidden;}
+body{margin:0 auto;}
+img{ width:100%; height:auto;} /**Õº∆¨  ≈‰∆¡ƒª**/
+/**for ie adjust width auto commen
+.wrapBig {
+ width:1200px;
+ margin:0 auto;
+}
+.wrapSmall {
+ width:980px;
+ margin:0 auto;
+}**/

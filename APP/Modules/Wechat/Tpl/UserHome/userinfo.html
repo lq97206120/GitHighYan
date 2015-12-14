@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta content="telephone=no"name="format-detection"/>
+<meta content="email=no"name="format-detection"/>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>public/css/style.css">
+<script src="<?php echo $base_url; ?>public/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wqBXfIN3HkpM1AHKWujjCdsi"></script>
+<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+
+<title>理财频道</title>
+</head>
+<body>
+  <div class="top">
+  	<a class="backa" href="<?php echo $site_url.'/user/index'; ?>"><img src="<?php echo $base_url; ?>public/images/icon_fanhui.png"></a>个人信息
+  </div>
+  <div class="toph"></div>
+  <!--<div class="my-pho">
+   		<div class="my-l"><img src="<?php echo $base_url.$user['ico']; ?>"></div>
+   		<div class="my-r">
+        	<a href="" class="my-rt"><img src="<?php echo $base_url; ?>public/images/icon_xiaoxi.png" width="30px" height="20px"></a>
+        	<h2><?php echo $user['name']; ?></h2>
+        	<h3><?php echo $user['balance']; ?></h3>
+        	<p>账户余额</p>
+        </div>
+        <div class="clear"></div>
+   </div> -->
+   <!--头像和基本信息end-->
+   <form action="" method="post">
+	<div class="bgfwid90">
+    	<div class="pers-inp">
+            <input type="text" class="text-inp telbg" name="phone" readonly="readonly" placeholder="绑定手机号" value="<?php if($phone){echo $phone;}else{echo trim($user['telphone']);} ?>" />
+            <input type="text" class="text-inp" name="username" placeholder="真实姓名" value="<?php echo $user['name']; ?>" />
+
+            <input type="text" class="text-inp" name="icd" placeholder="身份证" value="<?php echo $user_info['id_card']; ?>" />
+            <div class="address"><input type="text" class="text-inp" id="address" name="address" value="<?php echo $user_info['address']; ?>" placeholder="地址" />
+            	<a name="lnglot"><img src="<?php echo $base_url; ?>public/images/icon_dingwei.png"></a>
+            </div>
+            <div id="map" style="display:none;"></div>
+            <input type="text" class="text-inp" name="email" placeholder="邮箱" value="<?php echo $user_info['email']; ?>" />
+        </div>
+    </div>
+
+	<div class="pers-check">
+    	        
+        <?php 
+        $annual_income_3 = '';
+        $annual_income_5 = '';
+        $annual_income_8 = '';
+        $annual_income_12 = '';
+        $annual_income_16 = '';
+        $annual_income_aa = '';
+        switch($user_info['annual_income'])
+        {
+            case 3:
+                $annual_income_3 = 'checked="checked"';
+                break;
+            case 5:
+                $annual_income_5 = 'checked="checked"';
+                break;
+            case 8:
+                $annual_income_8 = 'checked="checked"';
+                break;
+            case 12:
+                $annual_income_12 = 'checked="checked"';
+                break;
+            case 16:
+                $annual_income_16 = 'checked="checked"';
+                break;
+            default:
+                $annual_income_aa = 'checked="checked"';
+                break;
+        }
+        ?>
+        <div class="pers-tit">期望年收益</div>
+        <label><input type="radio" name="annual_income" class="annual_income" value="3"  echo $annual_income_3; >3%</label>
+        <label><input type="radio" name="annual_income" class="annual_income" value="5"  echo $annual_income_5; >5%</label>
+        <label><input type="radio" name="annual_income" class="annual_income" value="8"  echo $annual_income_8; >8%</label>
+    
+		<input type="text" name="annual_income" value="<?php if($annual_income_aa){echo $user_info['annual_income']; } ?>" class="num-inp" maxlength="2" placeholder="输入期望年收益">
+        <div class="pers-tit">安全程度</div>
+        <label><input type="radio"  name="safe_num" value="3"  if($user_info['safe_num']==3){echo 'checked="checked"';} >高</label>
+        <label><input type="radio" name="safe_num" value="2" if($user_info['safe_num']==2){echo 'checked="checked"';} >中</label>
+        <label><input type="radio" name="safe_num" value="1" if($user_info['safe_num']==1){echo 'checked="checked"';} >低</label>
+        <div class="clear"></div>
+    </div>
+    <input class="submit" type="button" value="">
+    
+
+	<div class="pers-hide">
+    	<div class="pers-hcon">
+        	<h3>确认保存修改</h3>
+           	<input type="button" value="取消" class="cancel-s">
+           	<input type="button" value="确认" class="yes-s">
+            <div class="clear"></div>
+        </div>
+    </div>
+    </form>
+
+<script>
+	$(function(){
+		$('.submit').click(function(){
+				$('.pers-hide').fadeIn('slow');
+		});	
+		$('.cancel-s').click(function(){
+				$('.pers-hide').fadeOut('slow');
+		});
+
+        $(".yes-s").click(function(){
+
+            $("form").submit();
+        });
+
+        $('input:text[name="annual_income"]').attr('disabled', true);
+
+        $(".annual_income").click(function(){
+            var income = $(this).val();
+            if(income == 'aa')
+            {
+                $('input:radio[name="annual_income"]:checked').attr('checked',false);
+                $('input:text[name="annual_income"]').attr('disabled', false);
+            }
+            else
+            {
+                $('input:radio[name="annual_income2"]:checked').attr('checked',false);
+                $('input:text[name="annual_income"]').attr('disabled', true);
+                $('input:text[name="annual_income"]').val('');
+            }
+        });
+
+        /*
+        $('input:text[name="annual_income"]').keyup(function(){     
+            var tmptxt=$(this).val();     
+            $(this).val(tmptxt.replace(/\D|^0/g,''));     
+        }).bind("paste",function(){     
+            var tmptxt=$(this).val();     
+            $(this).val(tmptxt.replace(/\D|^0/g,''));     
+        }).css("ime-mode", "disabled"); 
+        */
+
+        <?php if(!$phone): ?>
+        $("input[name='phone']").click(function(){
+            window.location.href = "<?php echo $site_url.'/user/bindPhone'; ?>";
+        });
+        <?php endif; ?>
+
+
+        var map;
+        var gpsPoint;
+        var baiduPoint;
+        var gpsAddress;
+        var baiduAddress;
+
+        $("a[name='lnglot']").click(function(){
+            navigator.geolocation.getCurrentPosition(showMap, handleError, { enableHighAccuracy: true, maximumAge: 1000 });
+        });
+
+	});
+
+function showMap(value)
+        {
+            var longitude = value.coords.longitude;
+            var latitude = value.coords.latitude;
+            map = new BMap.Map("map");
+            //alert("坐标经度为：" + latitude + "， 纬度为：" + longitude );
+            gpsPoint = new BMap.Point(longitude, latitude);    // 创建点坐标
+            map.centerAndZoom(gpsPoint, 15);
+
+            BMap.Convertor.translate(gpsPoint, 0, translateCallback);
+        }
+
+        function handleError(value)
+        {
+            switch (value.code)
+            {
+                case 1:
+                    alert("位置服务被拒绝");
+                    break;
+                case 2:
+                    alert("暂时获取不到位置信息");
+                    break;
+                case 3:
+                    alert("获取信息超时");
+                    break;
+                case 4:
+                    alert("未知错误");
+                    break;
+            }
+        }
+
+        translateCallback = function (point)
+        {
+            baiduPoint = point;
+            var geoc = new BMap.Geocoder();
+            geoc.getLocation(baiduPoint, getCityByBaiduCoordinate);
+        }
+
+        function getCityByBaiduCoordinate(rs)
+        {
+            baiduAddress = rs.addressComponents;
+
+
+                    if(baiduAddress.province!==baiduAddress.city)
+                    {
+                        var address = baiduAddress.province + baiduAddress.city + baiduAddress.district + baiduAddress.street + baiduAddress.streetNumber;
+                    }
+                    else
+                    {
+                        var address = baiduAddress.city + baiduAddress.district + baiduAddress.street + baiduAddress.streetNumber;
+                    }
+
+                    $("#address").val(address);
+
+        }
+
+        wx.config({
+            debug: <?php  if($wxShare['debug']) echo  'true'; else echo 'false'; ?>, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '<?php echo $wxShare['appId'] ?>', // 必填，公众号的唯一标识
+            timestamp: '<?php echo $wxShare['timestamp'];?>', // 必填，生成签名的时间戳
+            nonceStr:  '<?php echo $wxShare['noncestr']; ?>', // 必填，生成签名的随机串
+            signature: '<?php echo $wxShare['signature']; ?>',// 必填，签名，见附录1
+            jsApiList: [<?php echo $wxShare['apiList']; ?>] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+
+        wx.ready(function(){    
+           wx.onMenuShareTimeline({
+                title: '<?php echo $wxShare['sharTile_L']; ?>', // 分享标题
+                link: '<?php echo $wxShare['shareLink']; ?>', // 分享链接
+                imgUrl: '<?php echo $wxShare['shareImg']; ?>', // 分享图标
+                success: function () { 
+                    // 用户确认分享后执行的回调函数
+              },
+              cancel: function () { 
+                // 用户取消分享后执行的回调函数
+              }
+            });
+            wx.onMenuShareAppMessage({
+                title: '<?php echo $wxShare['sharTile']; ?>', // 分享标题
+                desc: '<?php echo $wxShare['shareDesc']; ?>', // 分享描述
+                link: '<?php echo $wxShare['shareLink']; ?>', // 分享链接
+                imgUrl: '<?php echo $wxShare['shareImg']; ?>', // 分享图标
+                type: '', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () { 
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () { 
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+            wx.onMenuShareQQ({
+                title: '<?php echo $wxShare['sharTile']; ?>', // 分享标题
+                desc: '<?php echo $wxShare['shareDesc']; ?>', // 分享描述
+                link: '<?php echo $wxShare['shareLink']; ?>', // 分享链接
+                imgUrl: '<?php echo $wxShare['shareImg']; ?>', // 分享图标
+                success: function () { 
+                   // 用户确认分享后执行的回调函数
+                },
+                cancel: function () { 
+                   // 用户取消分享后执行的回调函数
+                }
+            });
+            wx.onMenuShareWeibo({
+                title: '<?php echo $wxShare['sharTile']; ?>', // 分享标题
+                desc: '<?php echo $wxShare['shareDesc']; ?>', // 分享描述
+                link: '<?php echo $wxShare['shareLink']; ?>', // 分享链接
+                imgUrl: '<?php echo $wxShare['shareImg']; ?>', // 分享图标
+                success: function () { 
+                   // 用户确认分享后执行的回调函数
+                },
+                cancel: function () { 
+                    // 用户取消分享后执行的回调函数
+                }
+            });  
+            wx.onMenuShareQZone({
+                title: '<?php echo $wxShare['sharTile']; ?>', // 分享标题
+                desc: '<?php echo $wxShare['shareDesc']; ?>', // 分享描述
+                link: '<?php echo $wxShare['shareLink']; ?>', // 分享链接
+                imgUrl: '<?php echo $wxShare['shareImg']; ?>', // 分享图标
+                success: function () { 
+                   // 用户确认分享后执行的回调函数
+                },
+                cancel: function () { 
+                    // 用户取消分享后执行的回调函数
+                }
+            });   
+        }); 
+</script>
+
+</body>
+</html>

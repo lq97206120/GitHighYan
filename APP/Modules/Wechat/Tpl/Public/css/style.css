@@ -1,0 +1,77 @@
+/**
+===============================================================
+	 CSS重置样式 公用层
+===============================================================
+**/
+html, body, div, p, ul, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, form, input, select, button, textarea, iframe, table, th, td,i ,b,a{
+	margin: 0;
+	padding: 0; font-family: 'Microsoft YaHei','微软雅黑';
+}
+body{background:#F2F3ED;margin: 0;padding: 0; }
+/*A*/
+a{
+	text-decoration:none; color:#666;
+}
+a:hover{
+	text-decoration:none;
+}
+/*img*/
+img{ border:0 none; vertical-align:top;}
+/*li*/
+ul,li{list-style-type:none;}
+/*浮动*/
+.fl{
+	float:left;
+	display:inline;
+}
+.fr{
+	float:right;
+	display:inline;
+}
+.clear{clear:both;}
+/*button*/
+button{ cursor:pointer;}
+.none{ display:none;}
+.bort1{ border-top:1px solid #f2f2f2 !important;}
+/*i,em重置*/
+i,em{ font-style:normal;}
+/*居中*/
+.tc{ text-align:center !important;}
+.mart10{ margin-top:10px !important; }
+.mart0{ margin-top:0 !important; padding-top:0 !important;}
+.marb0{ margin-bottom:0 !important;}
+.marb10{ margin-bottom:10px !important;}
+.borderno{ border:none !important}
+.bgno{ background:none !important}
+input::-webkit-input-placeholder {color:#b3b3b3 !important; }
+textarea::-webkit-input-placeholder {color:#b3b3b3 !important; }
+input{-webkit-appearance: none;appearance: none;outline:none;}
+select{-webkit-appearance: none;appearance: none;}
+.mart30{ margin-top:30px !important;}
+.paddt20{ padding-top:15px !important;}
+.wid94{ width:90%; background:#fff; padding:0 5%;}
+.top{ width:100%; height:45px; line-height:45px; text-align:center; position:fixed; top:0; left:0; background:#fff; color:#333; font-size:18px; z-index:99; border-bottom:1px solid #f2f2f2;}
+.backa{ position:absolute; top:12px; left:3%;}
+.backa img{ width:20px; height:20px;}
+.homea{position:absolute; top:10px; right:3%; width:22px; height:22px; display:block;}
+.homea img{ width:22px; height:22px;}
+
+.toph{ width:100%; height:45px;}
+
+/*会员中心*/
+.my-pho{ width:90%; padding:10px 5%; background:#fff; margin-bottom:10px;}
+.my-l{ float:left; width:30%; padding-right:3%; text-align:center;}
+.my-l img{ width:100px; height:100px;}
+.my-r{ float:left; width:67%; position:relative;}
+.my-r h2{ font-size:16px; font-weight:normal; color:#333; line-height:30px; margin-bottom:20px;}
+.my-r h3{ font-size:12px; font-weight:normal; color:#e03f09; line-height:30px;}
+.my-r p{ font-size:12px; font-weight:normal; color:#808080; line-height:20px;}
+.my-rt{ position:absolute; right:0; top:5px; z-index:11;}
+.chongz{ position:absolute; right:0; bottom:0; z-index:11; background:#E03F09; color:#fff; display:block; height:30px; width:59px; text-align:center; border-radius:5px; line-height:30px; font-size:14px;}
+.my-rtlogo{ height:30px; margin-top:-5px;}
+.my-list{ width:90%; padding:0 5%; background:#fff;}
+.my-list li{ border-bottom:1px solid #f2f2f2; background:url(../images/icon_xiangyou.png) no-repeat right center; background-size:10px 18px;}
+.my-list img{ width:20px; height:20px; margin:0 5px;}
+.my-list a{ display:block; width:100%; padding:16px 0; line-height:20px; font-size:16px; color:#999;}
+
+

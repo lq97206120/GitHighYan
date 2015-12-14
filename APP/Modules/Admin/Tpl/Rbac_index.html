@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>用户列表</title>
+<css file='__PUBLIC__/css/rbacpublic.css'/>
+</head>
+<body>
+	<table class='table'>
+		<tr>
+			<th>ID</th>
+			<th>编号</th>
+			<th>姓名</th>
+			<th>上次登录时间</th>
+			<th>上次登录ip</th>
+			<th>状态</th>
+			<th>所属组别</th>
+			<th>操作</th>
+	    </tr>
+		<foreach name='user' item='v'>
+     		<tr>
+     			<td>{$v.uid}</td>
+     			<td>{$v.unum}</td>
+     			<td>{$v.uname}</td>
+     			<td>{$v.ulogintime|date='y-m-d H:i',###}</td>
+     			<td>{$v.uloginip}</td>
+     			<td>
+     				<if condition='$v["ustatus"]'>已开启<else/>已关闭</if>
+     			</td>
+     			<td>
+					<if condition="$v['unum'] eq C('RBAC_SUPERADMIN')">
+					超级管理员<else/>
+						<ul>
+	     					<foreach name='v.role' item='value'>
+								<li>{$value.name}({$value.remark})</li>     						
+	     					</foreach>
+	     				</ul>
+     				</if>
+     			</td>
+     			<td>
+     				<a href=''>锁定</a>
+     			</td>
+     		</tr>
+		</foreach>
+	</table>
+</body>
+</html>

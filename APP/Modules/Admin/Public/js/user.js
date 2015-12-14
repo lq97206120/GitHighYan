@@ -22,22 +22,25 @@ function checklogin(){
 		return ;
 	}
 	
-	$.post(loginUrl,{username:username.val(),password:password.val(),verify_code:verify_code.val()},function (data) {
+	$.post(loginloginUrl,{username:username.val(),password:password.val(),verify_code:verify_code.val()},function (data) {
 		if(data.status == 2){
 			alert('验证码错误');
-			window.location.href = indexUrl;
+			window.location.href = loginindexUrl;
 		}else if(data.status == 3){
 			
-			window.location.href = adminindexUrl ;
+			window.location.href = indexUrl ;
 		}else if(data.status == 0){
 			alert('登录失败，请重新尝试');
-			window.location.href = indexUrl;
-		}else if(data.status == 1){
-			alert('用户不存在');
-			window.location.href = indexUrl;
-		}else{
+			window.location.href = loginindexUrl;
+		}else if(data.status==1)
+		{
+			alert('用户名或密码错误');
+			window.location.href = loginindexUrl;
+		}
+		else{
 			
-			window.location.href = homeindexUrl;
+			alert('用户已被锁定');
+			window.location.href = loginindexUrl;
 		}
 		
 	},'json');

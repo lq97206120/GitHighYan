@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no"name="format-detection"/>
+	<meta content="email=no"name="format-detection"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css">
+	<script src="__PUBLIC__/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<title>会员中心</title>
+</head>
+<body>
+  <!-- <div class="top">
+  	<a class="backa" href="<?php echo $site_url.'/welcome/home'; ?>"><img src="__PUBLIC__/images/icon_fanhui.png"></a>会员中心
+  </div>
+ --> 
+  <!-- <div class="toph"></div> -->
+   <div class="my-pho">
+   		<div class="my-l"><img src="<?php echo $base_url.$user['ico']; ?>"></div>
+   		<div class="my-r">
+        	<!-- <a href="<?php echo $site_url.'/user/balance'; ?>" class="my-rt"><img src="__PUBLIC__/images/icon_xiaoxi.png" width="30px" height="20px"></a> -->
+        	<!-- <h2><?php echo $user['name']; ?></h2> -->
+        	<h2>melody</h2>
+              <h3><p>积分:</p>   100</h3>        
+        </div>
+        <div class="clear"></div>
+   </div> 
+   <!--头像和基本信息end-->
+   <div class="my-list">
+   	<ul>
+    	<li><a href="{:U(GROUP_NAME.'/UserHome/userinfo')}"><img src="__PUBLIC__/images/icon_gerenxinxi.png">个人信息</a></li>
+        <li><a href="<?php echo $site_url.'/user/purchase'?>"><img src="__PUBLIC__/images/icon_yigoushanp.png">我的预定</a></li>
+    	<li><a href="<?php echo $site_url.'/user/historical'; ?>"><img src="__PUBLIC__/images/icon_lishijilu.png">历史记录</a></li>
+    	<li><a href="<?php echo $site_url.'/user/collection'; ?>"><img src="__PUBLIC__/images/icon_wodeshouc.png">我的收藏</a></li>
+    </ul>
+   </div>
+<script type="text/javascript">
+    $(function(){
+       $('.my-list li:last').css('border-bottom','none');
+    });
+    
+        wx.config({
+        debug: <?php  if($wxShare['debug']) echo  'true'; else echo 'false'; ?>, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '<?php echo $wxShare['appId'] ?>', // 必填，公众号的唯一标识
+        timestamp: '<?php echo $wxShare['timestamp'];?>', // 必填，生成签名的时间戳
+        nonceStr:  '<?php echo $wxShare['noncestr']; ?>', // 必填，生成签名的随机串
+        signature: '<?php echo $wxShare['signature']; ?>',// 必填，签名，见附录1
+        jsApiList: [<?php echo $wxShare['apiList']; ?>] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    
+    wx.ready(function(){    
+       wx.onMenuShareTimeline({
+            title: '<?php echo $wxShare['sharTile_L']; ?>', // 分享标题
+            link: '<?php echo $wxShare['shareLink']; ?>', // 分享链接
+            imgUrl: '<?php echo $wxShare['shareImg']; ?>', // 分享图标
+            success: function () { 
+                // 用户确认分享后执行的回调函数
+          },
+          cancel: function () { 
+            // 用户取消分享后执行的回调函数
+          }
+        });
+        wx.onMenuShareAppMessage({
+            title: '<?php echo $wxShare['sharTile']; ?>', // 分享标题
+            desc: '<?php echo $wxShare['shareDesc']; ?>', // 分享描述
+            link: '<?php echo $wxShare['shareLink']; ?>', // 分享链接
+            imgUrl: '<?php echo $wxShare['shareImg']; ?>', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () { 
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        wx.onMenuShareQQ({
+            title: '<?php echo $wxShare['sharTile']; ?>', // 分享标题
+            desc: '<?php echo $wxShare['shareDesc']; ?>', // 分享描述
+            link: '<?php echo $wxShare['shareLink']; ?>', // 分享链接
+            imgUrl: '<?php echo $wxShare['shareImg']; ?>', // 分享图标
+            success: function () { 
+               // 用户确认分享后执行的回调函数
+            },
+            cancel: function () { 
+               // 用户取消分享后执行的回调函数
+            }
+        });
+        wx.onMenuShareWeibo({
+            title: '<?php echo $wxShare['sharTile']; ?>', // 分享标题
+            desc: '<?php echo $wxShare['shareDesc']; ?>', // 分享描述
+            link: '<?php echo $wxShare['shareLink']; ?>', // 分享链接
+            imgUrl: '<?php echo $wxShare['shareImg']; ?>', // 分享图标
+            success: function () { 
+               // 用户确认分享后执行的回调函数
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+            }
+        });  
+        wx.onMenuShareQZone({
+            title: '<?php echo $wxShare['sharTile']; ?>', // 分享标题
+            desc: '<?php echo $wxShare['shareDesc']; ?>', // 分享描述
+            link: '<?php echo $wxShare['shareLink']; ?>', // 分享链接
+            imgUrl: '<?php echo $wxShare['shareImg']; ?>', // 分享图标
+            success: function () { 
+               // 用户确认分享后执行的回调函数
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+            }
+        });   
+    }); 
+</script>
+</body>
+</html>

@@ -1,13 +1,18 @@
 <?php
-class IndexAction extends Action{
+class IndexAction extends CommonAction{
 	//后台首页
 	public function index(){
-		//echo 'Admin/Index/index'; 
+		$user=D('UserRelation')->relation('role')->where(array('uid'=>$_SESSION['uid']))->find();
+		$this->user=$user;
+		$role=$user['role'];
+		$this->role=$role;
 		$this->display();
 	}
+	//显示后台中间主页
 	public function home(){
 		$this->display();
 	}
+
 	//注销
 	public function logout(){
 		session_unset();
