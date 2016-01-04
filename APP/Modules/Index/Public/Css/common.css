@@ -1,30 +1,37 @@
 @CHARSET "UTF-8";
-*{margin:0 auto;padding:0;}/*很重要，不然会出现offset等奇怪问题*/
+*{margin:0;padding:0;}/*很重要，不然会出现offset等奇怪问题*/
 html{ font-family:"microsoft yahei",arial;
 	font-size:100%;}
 body{margin:0;}
 img{max-width:100%;}
 li{list-style:none;}
 /*title*/
-.title{height:15%;
-		margin:0;}
+.title{height:130px;
+		background-image:url(/HighYan/APP/Modules/Index/Public/Images/top.gif);
+		background-repeat:no-repeat;
+		background-size:100% auto;
+		}
 /*nav*/
-nav{height:5%;
-	margin:0;
+nav{height:15%;
 	background-color:#333;
 	}
 nav ul{text-align:center;}
 nav li{ display:inline-block;
-		padding-right:4%;
-		padding-top:0.3%;
-		padding-bottom:0.3%;
+		margin-right:3em;
+		line-height:2em;
+		text-align:center;
+		
 		/*line-heigh:2em;*/
 		
 		}
 nav li a{text-decoration:none;
 		color:#eeeeee;
+<<<<<<< HEAD
 		font-size:2.5vmin;}/*怎么调字体大小？？？
 		*/
+=======
+		}
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 nav li a:hover,#menuIcon:hover{color:#DDD;}
 #menuIcon{display:none;
 		color:white;
@@ -33,8 +40,12 @@ nav li a:hover,#menuIcon:hover{color:#DDD;}
 		font-size:arial;
 			}
 /*content*/
+<<<<<<< HEAD
 .content{
 	    width:100%;
+=======
+.content{heitght:65%;
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 		margin:0 auto;
 		}	
 	

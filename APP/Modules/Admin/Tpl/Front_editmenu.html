@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/bootstrap.css">
+<style>
+ 	.center{text-align:center;}
+ </style>
+<title>更新菜单</title>
+<script>
+	window.UEDITOR_HOME_URL='__ROOT__/Data/Ueditor/';
+	window.onload=function(){
+			window.UEDITOR_CONFIG.initialFrameHeight=320;
+			//window.UEDITOR_CONFIG.getActionUrl = "{:U(GROUP_NAME.'/Blog/upload')}"; //提交页面
+			//window.UEDITOR_CONFIG.imagePath = URL + "php/";
+			//UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+			//UE.Editor.prototype.getActionUrl = function(action){
+			//if(action == 'uploadimage') {
+			//return '{:U(GROUP_NAME.'/Blog/upload')}';
+			//}
+			//return this._bkGetActionUrl(action);
+			//}
+			//window.UEDITOR_CONFIG.imageUrl='{:U(GROUP_NAME.'/Blog/upload')}';
+			//window.UEDITOR_CONFIG.imagePath=URL+"php/";
+			//上传文件的保存路径的修改再config.json里
+			UE.getEditor('mcontent');
+		}
+</script>
+
+<js file='__ROOT__/Data/Ueditor/ueditor.config.js' />
+<js file='__ROOT__/Data/Ueditor/ueditor.all.min.js' />
+
+</head>
+<body>
+	<div class='container'>
+		<h2 class='center'>菜单修改</h2>
+		<hr/>
+		 <form id="form2" method='post' action="__URL__/editmenuhandle" class="form-horizontal">
+				 
+				 <div class="form-group">
+				    <label for="usernum" class="col-sm-2 control-label">序号:</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control " id="mid" name="mid" value='{$singlemenu["mid"]}' readonly='true'>
+				    </div>
+				    
+				   
+			  	</div>
+			  	<div class="form-group">
+				    <label for="usernum" class="col-sm-2 control-label">名称:</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control " id="mname" name="mname" value='{$singlemenu["mname"]}'>
+				    </div>
+				    
+				   
+			  	</div>
+			  	<hr/>
+			    <textarea   id="mcontent" name="mcontent">{$singlemenu['mcontent']}</textarea>
+				   
+				<div class="modal-footer">
+			  		
+				   	 <a class="btn btn-primary" href="{:U('Admin/Front/menu')}" target="opt"><span>返 回</span></a>
+				   	 <input type="submit" class="btn btn-primary" value="保 存" ">
+				   </div>
+			  </form>
+	  </div>
+</body>
+</html>

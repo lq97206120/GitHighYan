@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/jquery-easyui-1.3.5/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/jquery-easyui-1.3.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/bootstrap-theme.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/bootstrap-responsive.min.css">
+	<script language="javascript" type="text/javascript" src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/jquery-easyui-1.3.5/jquery.easyui.min.js"></script>
+	<style css='text/css'>
+		.red{color:red;}
+		.blue{color:blue;}
+		
+		
+	</style>
+</head>
+<body style="padding:20px 20px 0px 20px">
+	<h2 align="center">订单列表</h2>
+	<form id="searchform" method='post' action="__URL__/ordersearch" class="form-horizontal">
+	<table id = "search" >
+	  <tr>
+	  	<td>
+	  	<select name="searchcondition" class="form-control">
+			  <option value ="onum">订单号</option>
+			  <option value ="omnum">会员帐号</option>
+			  <option value ="ognum">商品编号</option>
+			  <option value ="ogname">商品名称</option>
+			  <option value ="osunum">接待员工号</option>
+			  <option value ="ispullleader">店长意见</option>
+			  <option value ="assignstatus">指派状态</option>
+			  <option value ="opsname">指派单位名称</option>
+			   <option value ="ocunum">指派人工号</option>
+			  <option value ="pullok">打样状态</option>
+			  <option value ="shopok">订单最终状态</option>	
+		</select>
+	  	</td>
+	  	<td>
+	  		<input type="text" class="form-control"  id="searchcontent" name="searchcontent">
+	  	</td>
+	  	
+	  	<td>
+	  		<input type="hidden"   name="ocunum" value='{$unum}'>
+	  	</td>
+	  	
+	  	
+		<td>
+			<button class="btn  btn-default" id="searchbtn" name="searchbtn" type="button">查询&nbsp;<i class="icon-search icon-large icon-white"></i> </button>
+		</td>
+	  </tr>
+	</table>
+	</form>
+	<br/>
+	
+	<button id="userEdit" class="btn btn-default "  data-target="#edituserModal">
+			指派订单
+	</button>
+	
+	<div style="margin:10px 0;"></div>
+	
+	
+	<table id="dg" title="订单信息列表" style="width:1200px;height:380px" >
+	<foreach name='order' item='u'>
+	<tr>
+		<td>{$u.onum}</td>
+		<td>{$u.omnum}</td>
+		<td>{$u.ossname}</td>
+		<td>{$u.osunum}</td>
+		<td>{$u.ougname}</td>
+		<td>{$u.odgname}</td>
+		<td>{$u.obgname}</td>
+		<td>{$u.bookdate}</td>
+		<td><if condition="$u['assignstatus'] eq 0"><a class='blue'>未分配</a><else/>已分配</if></td>
+		<td><if condition="$u['leaderverifystatus'] eq 1"><if condition="$u['ispullleader'] eq 1"><a class='blue'>要打样</a><else/>不打样</if><else/>&nbsp;</if></td>
+		<td><if condition="$u['assignstatus'] eq 1">{$u.opsname}<else/>&nbsp;</if></td>
+		<td><if condition="$u['assignstatus'] eq 1">{$u.ocunum}<else/>&nbsp;</if></td>
+		<td><if condition="$u['assignstatus'] eq 1"><if condition="$u['shopok'] eq 0"><a class='blue'>未完成</a><else/>已完成</if><else/>&nbsp;</if></td>
+		<td><if condition="$u['shopok'] eq 1">{$u.okdate}<else/>&nbsp;</if></td>
+		<td>
+			<a href="javascript:void(0)" onclick="deleteorder({$u.onum})">删除</a>
+		</td>
+				
+	</tr>
+	</foreach>
+	</table>
+	<div align="center">
+	{$page}
+	</div>
+	
+	
+	<!-- Modal 修改信息 -->
+	<div class="modal fade" id="edituserModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
+	   <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">指派订单</h4>
+	      </div>
+	      <div class="modal-body">
+	      <form id="form2" method='post' action="__URL__/orderupdate" class="form-horizontal">
+
+		   <div class="form-group">
+			    <label for="usernum" class="col-sm-2 control-label">订单号</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" id="onum" name="onum"  readonly="true">
+			      
+			    </div>
+		  </div>
+		  
+	   <div class="form-group">
+			    <label for="userlimits" class="col-sm-2 control-label">供应商</label>
+			    <div class="col-sm-10">
+				     <select id="provider" name="opsname" class="form-control">
+						<option value='0'>选择供应商=</option>
+						<foreach name='provider' item='v'>
+						<option value='{$v['sname']}'>{$v.sname}</option>
+						</foreach>
+						
+					</select>
+			    </div>
+		  </div>
+		  
+		
+		   <div class="form-group">
+		     <input type="hidden" name="unum" id="unum">
+		  </div>
+		  <div class="modal-footer">
+	       <input type="submit" class="btn btn-primary" id="edituserbtn" value="保 存" >
+	      </div>
+		  </form>
+		 </div>
+	    </div>
+	  </div>
+	</div>
+	<script>
+	
+		function deleteorder(onum){
+			
+			if(confirm("确认删除？删除后无法恢复")){
+				$.ajax({
+					type:"POST",
+					url:"__URL__/deleteorder/onum/"+onum,
+					success:function(data,textStatus,jqXHR){
+					alert("删除成功");
+						window.location.reload();
+		
+					},
+					error:function(jqXHR,textStatus,errorThrown){
+						alert("删除失败");
+					}
+				})
+					
+				}
+				else{
+				
+					return;
+				}	
+		}
+			
+		function changebstatus(bnum){
+			if(confirm("确认标记")){
+			$.ajax({
+				type:"POST",
+				url:"__URL__/changebstatus/bnum/"+bnum,
+				success:function(data,textStatus,jqXHR){
+				alert("标记成功");
+					window.location.reload();
+
+				},
+				error:function(jqXHR,textStatus,errorThrown){
+					alert("标记失败");
+				}
+			})
+				
+			}
+			else{
+			
+				return;
+			}	
+		}
+		
+		$(function(){
+			$('#searchbtn').click(function(){
+				if($('#searchcontent').val() == ''){
+					alert('请输入查询内容');
+					return false;
+				}else{
+					$('#searchform').submit();
+				}
+										
+			});
+			
+		});
+		
+		$(function(){
+			$('#adduserModal').on('shown.bs.modal',function(e){
+			$('#adduserModal #usernum').focus();
+		});
+			$('#adduserbtn').click(function(){
+								
+				if($('#adduserModal #omnum').val() == ''||$('#adduserModal #omname').val() == ''||$('#adduserModal #omphone').val() == ''||$('#adduserModal #bookdate').val() == ''){
+					alert('缺少必填项！');
+					return false;
+				}
+										
+			});
+			
+		});
+		$(function(){
+			$('#edituserModal').on('shown.bs.modal',function(e){
+			$('#edituserModal #username').focus();
+		});
+			$('#edituserbtn').click(function(){
+				
+				if($('#edituserModal #provider').val() == '0' ){
+					alert('请选择供应商');
+					return false;
+				}
+				
+										
+			});
+			
+		});
+	
+		$(function(){
+			
+			$('#userEdit').click(function(){
+				var row = $('#dg').datagrid('getSelected');
+				
+				if(row == null){
+					alert('请选择一条数据');
+				}
+				
+				$('#edituserModal #onum').val(row.onum);
+				$('#edituserModal #unum').val({$unum});
+				$('#edituserModal #provider').val(row.opsname);
+				
+						
+				$('#edituserModal').modal();
+			});
+			
+			
+			$('#dg').datagrid({
+		       fitColumns:true,
+				rownumbers:true,
+				singleSelect:true,
+				autoRowHeight:false,
+				
+			  columns:[[
+	          	         
+				{field:'onum',title:"订单号",width:50},
+		        {field:'omnum',title:'会员帐号',width:40},
+		        {field:'ossname',title:'店铺名称',width:40},
+		        {field:'osunum',title:'接待员工号',width:40},
+		        {field:'ougname',title:'上衣款式',width:50}, 
+		      	{field:'odgname',title:'裤子款式',width:50},
+		        {field:'obgname',title:'背心款式',width:50},
+		        {field:'bookdate',title:'下单日期',width:40},
+		        {field:'assignstatus',title:'指派状态',width:30},
+		        {field:'ispullleader',title:'店长意见',width:30},
+		        {field:'opsname',title:'指派单位',width:30},
+		        {field:'ocunum',title:'指派人工号',width:35},
+		        {field:'shopok',title:'订单最终状态',width:40},
+		        {field:'okdate',title:'完成日期',width:40},
+		        {field:'ss',title:'操作',width:25},
+		   	  ]]
+			});
+		});
+	</script>
+</body>
+</html>

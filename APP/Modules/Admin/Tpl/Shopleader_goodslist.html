@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>部门商品配置</title>
+<css file='__PUBLIC__/css/rbacpublic.css'/>
+<css file='__PUBLIC__/css/rbac.css'/>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+<script>
+	$(function(){
+		$('input[level=1]').click(function(){
+			var inputs=$(this).parents('.app').find('input');
+			$(this).attr('checked')?inputs.attr('checked','checked'):inputs.removeAttr('checked');
+		});
+		$('input[level=2]').click(function(){
+			var inputs=$(this).parents('dl').find('input');
+			$(this).attr('checked')?inputs.attr('checked','checked'):inputs.removeAttr('checked');
+		});
+	});
+</script>
+</head>
+<body>
+<form action='{:U('Admin/Shop/goodslistHandle')}' method='post'>
+		<div id='wrap'>
+			<a  class='add-app' href="{:U('Admin/Shop/index')}">返回</a>
+				<div class='app'>
+					<p>
+						<strong>单位名称：<span>{$shop.sname}</span></strong>
+						<input type='checkbox'  level='1'/>
+					</p>
+					<foreach name='goods' item='g'>
+						<dl>
+		  						<dt>
+									<strong>商品种类：<span>{$g.classname}</span></strong>
+									<input type='checkbox'  level='2'/>
+								</dt>
+		  				    <foreach name="g['contents']" item='v'>
+		  						<dd>
+		  							<span>{$v.gname}</span>
+									<input type='checkbox' name='goods[]' value="{$v['gid']}" <if condition='$v["possess"]'>checked='checked'</if>/>
+		  						</dd>
+		  					</foreach>
+	  					</dl>
+					</foreach>
+				 
+				</div>
+		
+			
+		</div>
+		<input type='hidden' name='sid' value="{$shop['sid']}"/>
+		<input type='submit' align='center' value='保存' style='display:block;margin:20px auto;cursor:pointer;width:70px;height:35px;color:#000;'/>
+	</form>
+</body>
+</html>

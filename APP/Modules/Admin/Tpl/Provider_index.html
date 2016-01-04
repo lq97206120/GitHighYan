@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/jquery-easyui-1.3.5/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/jquery-easyui-1.3.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/bootstrap-theme.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/bootstrap-responsive.min.css">
+	<script language="javascript" type="text/javascript" src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/jquery-easyui-1.3.5/jquery.easyui.min.js"></script>
+	<style css='text/css'>
+		.red{color:red;}
+		.blue{color:blue;}
+		
+		.modal-dialog{width:900px;}
+		.inputpadding{padding-left:1px;}
+		.pantssize{font-size:14px;}
+		.back{position:absolute;right:10px;top:10px;}
+		
+	</style>
+</head>
+<body style="padding:20px 20px 0px 20px">
+	<h2 align="center">店铺订单列表</h2>
+	<form id="searchform" method='post' action="__URL__/ordersearch" class="form-horizontal">
+	<table id = "search" >
+	  <tr>
+	  	<td>
+	  	<select name="searchcondition" class="form-control">
+			  <option value ="onum">订单号</option>
+			  <option value ="ispullleader">店长意见</option>
+			  <option value ="providerpull">样本收发</option>
+			  <option value ="pullok">打样状态</option>
+			  <option value ="providerok">成品收发</option>
+			  <option value ="shopok">订单最终状态</option>	
+		</select>
+	  	</td>
+	  	<td>
+	  		<input type="text" class="form-control"  id="searchcontent" name="searchcontent">
+	  	</td>
+	  	
+	  	<td>
+	  		<input type="hidden"   name="opsname" value='{$opsname}'>
+	  	</td>
+	  	
+	  	<td>
+	  	</td>
+		<td>
+			<button class="btn  btn-default" id="searchbtn" name="searchbtn" type="button">查询&nbsp;<i class="icon-search icon-large icon-white"></i> </button>
+		</td>
+	  </tr>
+	</table>
+	</form>
+	<br/>
+	
+	
+	<div style="margin:10px 0;"></div>
+	
+	
+	<table id="dg" title="订单信息列表" style="width:1200px;height:380px" >
+	<foreach name='order' item='u'>
+	<tr>
+		
+		<td>{$u.onum}</td>
+		<td>{$u.ougname}</td>
+		<td>{$u.odgname}</td>
+		<td>{$u.obgname}</td>
+		
+		<td>{$u.ossname}</td>	
+		<td>{$u.ossaddr}</td>
+		<td>{$u.ossphone}</td>
+		<td>{$u.ossmail}</td>
+				
+		<td>{$u.bookdate}</td>
+		<td><if condition="$u['ispullleader'] eq 1"><span class='blue'>要打样</span><else/>已打样</if></td>
+		<td><if condition="$u['ispullleader'] eq 1"><if condition="$u['providerpull'] eq 0"><a href="#" onclick="changepull({$u.onum})">未寄出</a><else/>已寄出</if><else/>已寄出</if></td>
+		<td><if condition="$u['ispullleader'] eq 1"><if condition="$u['providerpull'] eq 1"><if condition="$u['pullok'] eq 0"><span class='blue'>未打样</span><else/>已打样</if><else>&nbsp;</if> <else/>已打样</if></td>
+		<td><if condition="$u[pullok] eq 1"><if condition="$u['providerok'] eq 0"><a href="#" onclick="changeproviderok({$u.onum})">未制作</a><else/>已寄出</if><else/>&nbsp;</if></td>
+		<td><if condition="$u['shopok'] eq 0">&nbsp;<else/>已完成</if></td>
+		<td><if condition="$u['shopok'] eq 1">{$u.okdate}<else/>&nbsp;</if></td>
+		<td>
+			<a href="{:U('Admin/Provider/readorder',array('onum'=>$u['onum'],'opsname'=>$opsname,))}" target="opt">读取</a>
+		</td>	
+		
+				
+	</tr>
+	</foreach>
+	</table>
+	<div align="center">
+	{$page}
+	</div>
+		
+	<script>
+
+		//处理查询
+		$(function(){
+			$('#searchbtn').click(function(){
+				if($('#searchcontent').val() == ''){
+					alert('请输入查询内容');
+					return false;
+				}else{
+					$('#searchform').submit();
+				}
+										
+			});
+			
+		});
+		//处理打样寄出	
+		function changepull(onum){
+			alert("订单号为:"+onum);
+			if(confirm("确认样本已寄出？")){
+				
+			$.ajax({
+				type:"POST",
+				url:"__URL__/changepull/onum/"+onum,
+				success:function(data,textStatus,jqXHR){
+				alert("标记成功");
+					window.location.reload();
+
+				},
+				error:function(jqXHR,textStatus,errorThrown){
+					alert("标记失败");
+				}
+			})
+				
+			}
+			else{
+			
+				return;
+			}	
+		}
+		//处理成品寄出	
+		function changeproviderok(onum){
+			alert("订单号为:"+onum);
+			if(confirm("确认成品已寄出？")){
+				
+			$.ajax({
+				type:"POST",
+				url:"__URL__/changeproviderok/onum/"+onum,
+				success:function(data,textStatus,jqXHR){
+				alert("标记成功");
+					window.location.reload();
+
+				},
+				error:function(jqXHR,textStatus,errorThrown){
+					alert("标记失败");
+				}
+			})
+				
+			}
+			else{
+			
+				return;
+			}	
+		}
+			
+			$('#dg').datagrid({
+		       fitColumns:true,
+				rownumbers:true,
+				singleSelect:true,
+				autoRowHeight:false,
+				
+			  columns:[[
+	           
+	          	{field:'onum',title:"订单号",width:50},
+		        {field:'ougname',title:'上衣款式',width:50}, 
+		      	{field:'odgname',title:'裤子款式',width:50},
+		        {field:'obgname',title:'背心款式',width:50},
+
+		        {field:'ossname',title:"店铺名称",width:40},
+		        {field:'ossaddr',title:"店铺地址",width:80},
+		        {field:'ossphone',title:"店铺电话",width:50},
+		        {field:'ossmail',hidden:true},
+		      		       
+		        {field:'bookdate',title:'下单日期',width:40},
+		      	{field:'ispullleader',title:'店长意见',width:30},
+		      	{field:'providerpull',title:'样本收发',width:30},
+		      	{field:'pullok',title:'打样状态',width:30},
+		      	{field:'providerok',title:'成品收发',width:30},
+		        {field:'shopok',title:'订单最终状态',width:40},
+		        {field:'okdate',title:'完成日期',width:40},
+		        {field:'ss',title:'操作',width:30},
+		   	  ]]
+			});
+		
+	</script>
+</body>
+</html>

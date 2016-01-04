@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/jquery-easyui-1.3.5/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/jquery-easyui-1.3.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/bootstrap-theme.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/bootstrap-responsive.min.css">
+	<script language="javascript" type="text/javascript" src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/jquery-easyui-1.3.5/jquery.easyui.min.js"></script>
+	<style css='text/css'>
+		.blue{color:blue;}
+		
+	</style>
+</head>
+<body style="padding:20px 20px 0px 20px">
+	<h2 align="center">预约列表</h2>
+	<form id="searchform" method='post' action="__URL__/booksearch" class="form-horizontal">
+	<table id = "search" >
+	  <tr>
+	  	<td>
+	  	<select name="searchcondition" class="form-control">
+			  <option value ="bnum">预约号</option>
+			  <option value ="bname">姓名</option>
+			  <option value ="bmale">性别</option>
+			  <option value ="bstatus">状态</option>
+			  <option value ="bphone">联系电话</option>
+			  <option value ="bdate">预约时间</option>
+			  <option value ="bunum">接待员工号</option>
+			  <option value ="buname">接待员姓名</option>	  
+		</select>
+	  	</td>
+	  	<td>
+	  		<input type="text" class="form-control"  id="searchcontent" name="searchcontent">
+	  	</td>
+	  	<td>
+	  		<input type="hidden" class="form-control"  name="bsid" value='{$bsid}'>
+	  	</td>
+	  	<td>
+	  		<input type="hidden" class="form-control"  name="uid" value='{$uid}'>
+	  	</td>
+	  	<td>
+	  	</td>
+		<td>
+			<button class="btn  btn-default" id="booksearch" name="booksearch" type="button">查询&nbsp;<i class="icon-search icon-large icon-white"></i> </button>
+		</td>
+	  </tr>
+	</table>
+	</form>
+	<br/>
+	
+	
+	<div style="margin:10px 0;"></div>
+	
+	
+	<table id="dg" title="预约信息列表" style="width:1100px;height:380px" >
+	<foreach name='book' item='u'>
+	<tr>
+		<td>{$u.bnum}</td>
+		<td>{$u.bname}</td>
+		<td><if condition="$u['bmale'] eq 1">男<else/>女</if></td>
+		<td>{$u.bphone}</td>
+		<td>{$u.bdate|date='y-m-d H:i',###}</td>
+		<td>{$u.bshopsname}</td>
+		<td><if condition="$u['bstatus'] eq 0"><a class='blue' href="javascript:void(0)" onclick="changebstatus({$u.bnum},{$uid})">未处理</a><else/>已处理</if></td>
+		<td>{$u.bunum}</td>
+		<td>{$u.buname}</td>		
+	</tr>
+	</foreach>
+	</table>
+	<div align="center">
+	{$page}
+	</div>
+	
+	
+	<script>
+		
+		function changebstatus(bnum,uid){
+			
+			if(confirm("确认标记")){
+			$.ajax({
+				type:"POST",
+				url:"__URL__/changebstatus/bnum/"+bnum+"/uid/"+uid,
+				success:function(data,textStatus,jqXHR){
+				alert("标记成功");
+					window.location.reload();
+
+				},
+				error:function(jqXHR,textStatus,errorThrown){
+					alert("标记失败");
+				}
+			})
+				
+			}
+			else{
+			
+				return;
+			}	
+		}
+		
+		$(function(){
+			$('#booksearch').click(function(){
+				if($('#searchcontent').val() == ''){
+					alert('请输入查询内容');
+					return false;
+				}else{
+					$('#searchform').submit();
+				}
+										
+			});
+			
+		});
+		
+		$(function(){
+			$('#adduserModal').on('shown.bs.modal',function(e){
+			$('#adduserModal #usernum').focus();
+		});
+			$('#adduserbtn').click(function(){
+								
+				if($('#adduserModal #username').val() == ''||$('#adduserModal #usertel').val() == ''||$('#adduserModal #userdate').val() == ''){
+					alert('每一项都不能为空！');
+					return false;
+				}
+										
+			});
+			
+		});
+		$(function(){
+			$('#edituserModal').on('shown.bs.modal',function(e){
+			$('#edituserModal #username').focus();
+		});
+			$('#edituserbtn').click(function(){
+				if($('#edituserModal #username').val() == '' || $('#edituserModal #usernum').val() == ''){
+					alert('姓名或帐号为空！');
+					return false;
+				}else{
+					if($('#edituserModal #usersex').val() != '男' && $('#edituserModal #usersex').val() != '女'){
+						alert('性别只能为男或女');
+						return false;
+					}else{
+						//$('#form2').submit();
+						var user_id=$("#edituserModal #userid").val();
+						var user_name=$("#edituserModal #username").val();
+						var user_num=$("#edituserModal #usernum").val();
+						var user_sex=$("#edituserModal #usersex").val();
+						var user_birth=$("#edituserModal #userbirth").val();
+						var user_endtime=$("#edituserModal #userendtime").val();
+						var user_grade=$("#edituserModal #usergrade").val();
+						var user_major=$("#edituserModal #usermajor").val();
+						var user_tel=$("#edituserModal #usertel").val();
+						var user_mail=$("#edituserModal #usermail").val();
+						var user_nation=$("#edituserModal #usernation").val();
+						var user_limits=$("#edituserModal #userlimits").val();
+						var user_url=$("#edituserModal #url").val();
+						$.ajax({
+							type:"POST",
+							url:"__URL__/update",
+							data:{userid:user_id,username:user_name,usernum:user_num,usersex:user_sex,userbirth:user_birth,userendtime:user_endtime,usergrade:user_grade,usermajor:user_major,usertel:user_tel,usermail:user_mail,usernation:user_nation,userlimits:user_limits,url:user_url},
+							success:function(data,textStatus,jqXHR){
+								alert("修改成功");
+								window.location.reload();
+
+							},
+							error:function(jqXHR,textStatus,errorThrown){
+								alert("修改失败");
+								window.location.reload();
+							}
+						});
+					}
+				}
+										
+			});
+			
+		});
+	
+		$(function(){
+			
+			$('#userEdit').click(function(){
+				var row = $('#dg').datagrid('getSelected');
+				
+				if(row == null){
+					alert('请选择一条数据');
+				}
+				$('#edituserModal #username').val(row.mname);
+				$('#edituserModal #usernum').val(row.mnum);
+				$('#edituserModal #usersex').val(row.mmale);
+				if(row.mmale=="男")$("#edituserModal input[name='mmale'][value=1]").attr("checked",true);
+					else $("#edituserModal input[name='mmale'][value=0]").attr("checked",true);
+				if(row.mstatus=="开启")$("#edituserModal input[name='mstatus'][value=1]").attr("checked",true);
+				else $("#edituserModal input[name='mstatus'][value=0]").attr("checked",true);
+				$('#edituserModal #userstarttime').val(row.umdate);
+				$('#edituserModal #usertel').val(row.mphone);
+				$('#edituserModal #userpoints').val(row.mpoints);
+				$('#edituserModal').modal();
+			});
+			
+			
+			$('#dg').datagrid({
+		       fitColumns:true,
+				rownumbers:true,
+				singleSelect:true,
+				autoRowHeight:false,
+				
+			  columns:[[
+				{field:'bnum',title:"预约号",width:60},
+		        {field:'bname',title:'姓名',width:80},
+		        {field:'bmale',title:"性别",width:40},
+		        {field:'bphone',title:"联系电话",width:100},
+		        {field:'bdate',title:'预约时间',width:80}, 
+		        {field:'bshopsname',title:'预约店铺',width:80}, 
+		        {field:'bstatus',title:"状态",width:40},
+		        {field:'bunum',title:'接待员工号',width:80}, 
+		        {field:'buname',title:'接待员姓名',width:80}, 
+		       
+		       
+		        
+		   	  ]]
+			});
+		});
+	</script>
+</body>
+</html>

@@ -15,7 +15,11 @@ Class ShopRelationModel extends RelationModel{
 					'foreign_key'=>'shop_id',//主表在中间表的字段名称
 					'relation_foreign_key'=>'goods_id',//副表在中间表的字段 名称
 					'relation_table'=>'hy_goods_shop',//中间表
+<<<<<<< HEAD
 					//'mapping_fields'=>'gid,gnum,gname',
+=======
+					'mapping_fields'=>'gid,gnum,gname,gclass',
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 			),
 			
 	);

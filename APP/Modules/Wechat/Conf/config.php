@@ -19,6 +19,10 @@ return array(
 	'__PUBLIC__'=>__ROOT__.'/'.APP_NAME.'/'.'Modules/'.GROUP_NAME.'/Tpl/Public',
     ),
     'URL_HTML_SUFFIX'=>'',
+<<<<<<< HEAD
+=======
+	'TMPL_FILE_DEPR' => '/',
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 
   
 

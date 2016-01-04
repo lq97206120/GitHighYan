@@ -21,8 +21,15 @@
 	  	<td>
 		  	<select name="searchcondition" class="form-control">
 				  <option value ="sname">部门名称</option>
+<<<<<<< HEAD
 				  <option value ="saddr">地址</option>
 				  <option value ="sphone">电话</option>
+=======
+				  <option value ="sclass">部门类型</option>
+				  <option value ="saddr">地址</option>
+				  <option value ="sphone">电话</option>
+				  <option value ="smail">邮箱</option>
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 			</select>
 	  	</td>
 	  	<td>
@@ -47,15 +54,29 @@
 	<div style="margin:10px 0;"></div>
 	
 	
+<<<<<<< HEAD
 	<table id="dg" title="学生信息列表" style="width:1100px;height:308px" >
+=======
+	<table id="dg" title="部门信息列表" style="width:1100px;height:308px" >
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 	<foreach name='shop' item='u'>
 	<tr>
 		<td>{$u.sid}</td>
 		<td>{$u.sname}</td>
+<<<<<<< HEAD
 		<td>{$u.saddr}</td>
 		<td>{$u.sphone}</td>
 		<td><a href="{:U('Admin/Shop/goodslist',array('sid'=>$u['sid']))}">商品管理</a></td>
 		<td><if condition="$u['sstatus'] eq 1">开启<else/>关闭</if></td>
+=======
+		<td><if condition="$u['sclass'] eq 1">店铺<elseif condition="$u['sclass'] eq 2"/>管理<else/>供应商</if></td>
+		<td>{$u.saddr}</td>
+		<td>{$u.sphone}</td>
+		<td>{$u.smail}</td>
+		<td><a href="{:U('Admin/Shop/goodslist',array('sid'=>$u['sid']))}">商品管理</a></td>
+		<td><if condition="$u['sstatus'] eq 1">开启<else/>关闭</if></td>
+		<td>{$u.sguide}</td>
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 		<td>
 			<a href="javascript:void(0)" onclick="deleteuser({$u.sid})">删除</a>
 		</td>		
@@ -80,22 +101,55 @@
 		   <div class="form-group">
 			    <label for="usernum" class="col-sm-2 control-label">部门名称</label>
 			    <div class="col-sm-10">
+<<<<<<< HEAD
 			      <input type="text" class="form-control" id="sname" name="sname"  placeholder="不能为空">
 			    </div>
 		  </div>
 		  <div class="form-group">
+=======
+			      <input type="text" class="form-control" id="sname" name="sname"  placeholder="不能为空" >
+			    </div>
+		  </div>
+		  <div class="form-group">
+				    <label for="usersex" class="col-sm-2 control-label">部门类型</label>
+				    <div class="col-sm-10">
+				     <input type="radio"   name="sclass" value='1' checked="checked" style="width: 50px"/>&nbsp;&nbsp;店铺&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio"    name="sclass" value='2' style="width: 50px"/>&nbsp;&nbsp;管理
+					<input type="radio"    name="sclass" value='3' style="width: 50px"/>&nbsp;&nbsp;供应商
+				    </div>
+	 		  </div>
+		  <div class="form-group">
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 			    <label for="username" class="col-sm-2 control-label">地址</label>
 			    <div class="col-sm-10">
 			      <input type="text" class="form-control" id="saddr" name="saddr"  placeholder="不能为空">
 			    </div>
 		  </div>
 		  <div class="form-group">
+<<<<<<< HEAD
+=======
+			    <label for="username" class="col-sm-2 control-label">路线</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" id="sguide" name="sguide"  placeholder="不能为空">
+			    </div>
+		  </div>
+		  <div class="form-group">
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 			    <label for="usertel" class="col-sm-2 control-label">联系电话</label>
 			    <div class="col-sm-10">
 			      <input type="text" class="form-control" id="sphone" name="sphone"  placeholder="联系电话">
 			    </div>
 		  </div>
+<<<<<<< HEAD
 			
+=======
+		 <div class="form-group">
+			    <label for="usertel" class="col-sm-2 control-label">邮箱</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" id="smail" name="smail"  placeholder="邮箱">
+			    </div>
+		  </div>
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 	      
 		   <div class="modal-footer">
 		   	<input type="reset" class="btn btn-primary" name="Submit2" value="重 置">
@@ -123,17 +177,41 @@
 		   <div class="form-group">
 			    <label for="usernum" class="col-sm-2 control-label">部门名称</label>
 			    <div class="col-sm-10">
+<<<<<<< HEAD
 			      <input type="text" class="form-control" id="sname" name="sname"  placeholder="不能为空" >
+=======
+			      <input type="text" class="form-control" id="sname" name="sname"  placeholder="不能为空" readonly='true'>
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 			      
 			    </div>
 		  </div>
 		  <div class="form-group">
+<<<<<<< HEAD
+=======
+				    <label for="usersex" class="col-sm-2 control-label">部门类型</label>
+				    <div class="col-sm-10">
+				     <input type="radio"   name="sclass" value='1' checked="checked" style="width: 50px"/>&nbsp;&nbsp;店铺&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio"    name="sclass" value='2' style="width: 50px"/>&nbsp;&nbsp;管理
+					<input type="radio"    name="sclass" value='3' style="width: 50px"/>&nbsp;&nbsp;供应商
+				    </div>
+	 		  </div>
+		  <div class="form-group">
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 			    <label for="username" class="col-sm-2 control-label">地址</label>
 			    <div class="col-sm-10">
 			      <input type="text" class="form-control" id="saddr" name="saddr"  placeholder="不能为空">
 			    </div>
 		  </div>
+<<<<<<< HEAD
 		 
+=======
+		 <div class="form-group">
+			    <label for="username" class="col-sm-2 control-label">路线</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" id="sguide" name="sguide"  placeholder="不能为空">
+			    </div>
+		  </div>
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 		  <div class="form-group">
 			    <label for="usertel" class="col-sm-2 control-label">联系电话</label>
 			    <div class="col-sm-10">
@@ -141,6 +219,15 @@
 			    </div>
 		  </div>
 		  <div class="form-group">
+<<<<<<< HEAD
+=======
+			    <label for="usertel" class="col-sm-2 control-label">邮箱</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" id="smail" name="smail"  placeholder="邮箱">
+			    </div>
+		  </div>
+		  <div class="form-group">
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 			    <label for="usersex" class="col-sm-2 control-label">状态</label>
 			    <div class="col-sm-10">
 			      	<input type="radio"   name="sstatus" value='1' checked="checked" style="width: 50px"/>&nbsp;&nbsp;开启&nbsp;&nbsp;&nbsp;&nbsp;
@@ -201,7 +288,11 @@
 		});
 			$('#adduserbtn').click(function(){
 								
+<<<<<<< HEAD
 				if($('#adduserModal #sname').val() == '' || $('#adduserModal #saddr').val() == ''||$('#adduserModal #sphone').val() == ''){
+=======
+				if($('#adduserModal #sname').val() == '' || $('#adduserModal #saddr').val() == ''||$('#adduserModal #sphone').val() == ''||$('#adduserModal #smail').val() == ''){
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 					alert('每个单元都不能为空！');
 					return false;
 				}
@@ -267,8 +358,18 @@
 				}
 				$('#edituserModal #sid').val(row.sid);
 				$('#edituserModal #sname').val(row.sname);
+<<<<<<< HEAD
 				$('#edituserModal #saddr').val(row.saddr);
 				$('#edituserModal #sphone').val(row.sphone);
+=======
+				if(row.sclass=="店铺")$("#edituserModal input[name='sclass'][value=1]").attr("checked",true);
+				else{if(row.sclass=="管理")$("#edituserModal input[name='sclass'][value=2]").attr("checked",true);
+						else $("#edituserModal input[name='sclass'][value=3]").attr("checked",true);	}
+				$('#edituserModal #saddr').val(row.saddr);
+				$('#edituserModal #sguide').val(row.sguide);
+				$('#edituserModal #sphone').val(row.sphone);
+				$('#edituserModal #smail').val(row.smail);
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 				if(row.sstatus=="开启")$("#edituserModal input[name='sstatus'][value=1]").attr("checked",true);
 					else $("#edituserModal input[name='sstatus'][value=0]").attr("checked",true);
 				$('#edituserModal').modal();
@@ -284,10 +385,20 @@
 			  columns:[[
 				{field:'sid',hidden:true},
 				{field:'sname',title:"部门名称",width:30},
+<<<<<<< HEAD
 		        {field:'saddr',title:'地址',width:80},
 		        {field:'sphone',title:"电话",width:40},
 		        {field:'sgoods',title:"商品管理",width:20},
 		        {field:'sstatus',title:"状态",width:20},
+=======
+				{field:'sclass',title:"部门类型",width:30},
+		        {field:'saddr',title:'地址',width:80},
+		        {field:'sphone',title:"电话",width:40},
+		        {field:'smail',title:"邮箱",width:60},
+		        {field:'sgoods',title:"商品管理",width:20},
+		        {field:'sstatus',title:"状态",width:20},
+		        {field:'sguide',title:"路线",width:80},
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 		        {field:'ss',title:'操作',width:30},
 		       
 		        

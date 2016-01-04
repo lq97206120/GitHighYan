@@ -1,0 +1,124 @@
+[ 2015-12-08T00:46:52+08:00 ] 127.0.0.1 /HighYan/
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000523s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000703s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.007577s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.007725s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000270s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000293s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000148s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000392s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001411s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000446s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000562s ]
+
+[ 2015-12-08T20:11:16+08:00 ] 127.0.0.1 /HighYan/index.php/Admin/Login
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.004771s ]
+INFO: [ route_check ] --END-- [ RunTime:0.020809s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.008025s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.008196s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.167325s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.167498s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.012704s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.003990s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.002171s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000689s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.019931s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.010017s ]
+INFO: [ view_end ] --END-- [ RunTime:0.010165s ]
+
+[ 2015-12-08T20:11:16+08:00 ] 127.0.0.1 /HighYan/index.php/Admin/Login/verify
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000608s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000751s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000426s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000549s ]
+
+[ 2015-12-08T20:11:31+08:00 ] 127.0.0.1 /HighYan/index.php/Admin/Index
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000558s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000723s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000428s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000555s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined index: uid /var/www/HighYan/APP/Runtime/Cache/Admin/535580e01fa8474958b57ba3c83c3fb8.php 第 33 行.
+NOTIC: [8] Undefined index: uname /var/www/HighYan/APP/Runtime/Cache/Admin/535580e01fa8474958b57ba3c83c3fb8.php 第 40 行.
+NOTIC: [8] Undefined index: uid /var/www/HighYan/APP/Runtime/Cache/Admin/535580e01fa8474958b57ba3c83c3fb8.php 第 44 行.
+NOTIC: [8] Undefined index: uname /var/www/HighYan/APP/Runtime/Cache/Admin/535580e01fa8474958b57ba3c83c3fb8.php 第 89 行.
+NOTIC: [8] Undefined index: uid /var/www/HighYan/APP/Runtime/Cache/Admin/535580e01fa8474958b57ba3c83c3fb8.php 第 162 行.
+NOTIC: [8] Undefined index: uid /var/www/HighYan/APP/Runtime/Cache/Admin/535580e01fa8474958b57ba3c83c3fb8.php 第 163 行.
+INFO: ParseTemplate Behavior ::run [ RunTime:0.020583s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.020728s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000436s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000304s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000148s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000416s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001612s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000516s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000645s ]
+
+[ 2015-12-08T20:11:31+08:00 ] 127.0.0.1 /HighYan/index.php/Admin/Index/home
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000603s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000750s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000403s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000523s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined index: uname /var/www/HighYan/APP/Runtime/Cache/Admin/167d63cc805ee767a3764a5ddeed5aeb.php 第 24 行.
+NOTIC: [8] Undefined index: uname /var/www/HighYan/APP/Runtime/Cache/Admin/167d63cc805ee767a3764a5ddeed5aeb.php 第 25 行.
+INFO: ParseTemplate Behavior ::run [ RunTime:0.024408s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.024542s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000283s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000306s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000151s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000374s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001423s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000435s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000562s ]
+
+[ 2015-12-08T20:11:31+08:00 ] 127.0.0.1 /HighYan/index.php/Admin/Index/home
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000577s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000732s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000429s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000566s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined index: uname /var/www/HighYan/APP/Runtime/Cache/Admin/167d63cc805ee767a3764a5ddeed5aeb.php 第 24 行.
+NOTIC: [8] Undefined index: uname /var/www/HighYan/APP/Runtime/Cache/Admin/167d63cc805ee767a3764a5ddeed5aeb.php 第 25 行.
+INFO: ParseTemplate Behavior ::run [ RunTime:0.010314s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.010443s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000294s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000294s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000142s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000376s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001411s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000437s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000567s ]
+
+[ 2015-12-08T23:44:11+08:00 ] 127.0.0.1 /HighYan/index.php/Admin/Show/user
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000588s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000740s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000451s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000585s ]
+ERR: 无法加载模块:Show
+

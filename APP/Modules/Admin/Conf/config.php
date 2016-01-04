@@ -15,6 +15,11 @@ return array(
 	'RBAC_USER_TABLE'=>'hy_role_user',//角色与用户的中间表名称
 	'RBAC_ACCESS_TABLE'=>'hy_access',//权限表名称
 	'RBAC_NODE_TABLE'=>'hy_node',//节点表名称
+<<<<<<< HEAD
+=======
+    
+   
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 );
     
     

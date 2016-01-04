@@ -7,7 +7,11 @@ Class ShopAction extends CommonAction{
 		$count=M('shop')->count();
 		$page=new Page($count,10);
 		$limit = $page->firstRow . ',' . $page->listRows;
+<<<<<<< HEAD
 		$shop=M('shop')->limit($limit)->select();
+=======
+		$shop=M('shop')->order('sclass')->limit($limit)->select();
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 		$this->shop=$shop;
 		$this->page = $page->show ();
 		$this->display();
@@ -21,8 +25,16 @@ Class ShopAction extends CommonAction{
 		if(empty($shopResult)){
 				$receive=array(
 				'sname'=>$_POST['sname'],
+<<<<<<< HEAD
 				'saddr'=>$_POST['saddr'],
 				'sphone'=>$_POST['sphone'],
+=======
+				'sclass'=>$_POST['sclass'],
+				'saddr'=>$_POST['saddr'],
+				'sguide'=>$_POST['sguide'],
+				'sphone'=>$_POST['sphone'],
+				'smail'=>$_POST['smail'],
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 				'sstatus'=>'1',
 			
 			);
@@ -45,8 +57,16 @@ Class ShopAction extends CommonAction{
 			$shop=array(
 				'sid'=>$_POST['sid'],
 				'sname'=>$_POST['sname'],
+<<<<<<< HEAD
 				'saddr'=>$_POST['saddr'],
 				'sphone'=>$_POST['sphone'],
+=======
+				'sclass'=>$_POST['sclass'],
+				'saddr'=>$_POST['saddr'],
+				'sguide'=>$_POST['sguide'],
+				'sphone'=>$_POST['sphone'],
+				'smail'=>$_POST['smail'],
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 				'sstatus'=>$_POST['sstatus'],
 								
 				);
@@ -78,7 +98,19 @@ Class ShopAction extends CommonAction{
 		
 		$searchcondition = I ( 'searchcondition','');
 		$searchcontent = I('searchcontent','');
+<<<<<<< HEAD
 
+=======
+		if($searchcondition=='sclass'){
+			switch($searchcontent){
+				case '店铺': $searchcontent=1;break;
+				case '管理':	$searchcontent=2;break;
+				case '供应商':$searchcontent=3;break;
+					
+			}
+					
+		}
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 		
 		if(!empty($searchcondition) && !empty($searchcontent) ){
 			import ( 'ORG.Util.Page' );
@@ -86,10 +118,17 @@ Class ShopAction extends CommonAction{
 			$count=M('shop')->where($condition)->count ();
 			$page=new Page($count,10);
 			$limit=$page->firstRow . ',' . $page->listRows;
+<<<<<<< HEAD
 			$shop=M('shop')->where($condition)->limit ( $limit )->select ();
 			$this->page = $page->show ();
 			$this->shop = $shop;
 			$this->display();
+=======
+			$shop=M('shop')->where($condition)->order('sclass')->limit ( $limit )->select ();
+			$this->page = $page->show ();
+			$this->shop = $shop;
+			$this->display('index');
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 		
 		}
 	}
@@ -100,10 +139,17 @@ Class ShopAction extends CommonAction{
 		
 		//获取该单位有的商品
 		$possess=M('goods_shop')->where(array('shop_id'=>$_GET['sid']))->getField('goods_id',true);
+<<<<<<< HEAD
 	
 		//组合数组
 		$goods=goods_merge($goods,$possess);
 		//p($goods);
+=======
+		
+		//组合数组
+		$goods=goods_merge($goods,$possess);
+				
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 		$shop=M('shop')->where(array('sid'=>$_GET['sid']))->field(array('sname,sid'))->find();
 		$this->goods=$goods;
 		$this->shop=$shop;

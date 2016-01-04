@@ -1,0 +1,623 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/jquery-easyui-1.3.5/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/jquery-easyui-1.3.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/bootstrap-theme.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/bootstrap-responsive.min.css">
+	<script language="javascript" type="text/javascript" src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/jquery-easyui-1.3.5/jquery.easyui.min.js"></script>
+	<style css='text/css'>
+		.red{color:red;}
+		.blue{color:blue;}
+		.operate{color:#428bca;}
+		.modal-dialog{width:900px;}
+		.inputpadding{padding-left:1px;}
+		.pantssize{font-size:14px;}
+		.back{position:absolute;right:10px;top:10px;}
+	</style>
+</head>
+<body style="padding:20px 20px 0px 20px">
+	<h2 align="center">订单列表</h2>
+	<form id="searchform" method='post' action="__URL__/ordersearch" class="form-horizontal">
+	<table id = "search" >
+	  <tr>
+	  	<td>
+	  	<select name="searchcondition" class="form-control">
+			  <option value ="onum">订单号</option>
+			  <option value ="omnum">会员帐号</option>
+			  <option value ="omphone">会员电话</option>
+			  <option value ="ognum">商品编号</option>
+			  <option value ="ogname">商品名称</option>
+			  <option value ="osunum">接待员工号</option>
+			  <option value ="leaderverifystatus">店长审核状态</option>
+			  <option value ="ispullleader">店长意见</option>
+			   <option value ="pullok">打样状态</option>
+			  <option value ="shopok">订单最终状态</option>	
+		</select>
+	  	</td>
+	  	<td>
+	  		<input type="text" class="form-control"  id="searchcontent" name="searchcontent">
+	  	</td>
+	  	<td>
+	  		<input type="hidden"   name="osunum" value='{$osunum}'>
+	  	</td>
+	  	<td>
+	  		<input type="hidden"   name="sid" value='{$sid}'>
+	  	</td>
+	  	
+	  	<td>
+	  		<input type="hidden"   name="ossname" value='{$ossname}'>
+	  	</td>
+		<td>
+			<button class="btn  btn-default" id="searchbtn" name="searchbtn" type="button">查询&nbsp;<i class="icon-search icon-large icon-white"></i> </button>
+		</td>
+	  </tr>
+	</table>
+	</form>
+	<br/>
+	<button class="btn btn-default "  data-toggle="modal" data-target="#adduserModal">
+					添加订单
+			</button>
+
+	<div style="margin:10px 0;"></div>
+	
+	
+	<table id="dg" title="订单信息列表" style="width:1250px;height:380px" >
+	<foreach name='order' item='u'>
+	<tr>
+		<td>{$u.onum}</td>
+		<td>{$u.omnum}</td>
+		<td>{$u.omname}</td>
+		<td>{$u.omphone}</td>
+		
+		<td>{$u.ougname}</td>
+			
+		<td>{$u.odgname}</td>
+			
+		<td>{$u.obgname}</td>
+			
+		<td>{$u.osunum}</td>
+		<td>{$u.bookdate}</td>
+		<td><if condition="$u['leaderverifystatus'] eq 0"><span class='blue'>未审核</span><else/>已审核</if></td>
+		<td><if condition="$u['leaderverifystatus'] eq 1"><if condition="$u['ispullleader'] eq 1"><span class='blue'>要打样</span><else/>不打样</if><else/>&nbsp;</if></td>
+		<td><if condition="$u['leaderverifystatus'] eq 1"><if condition="$u['ispullleader'] eq 1"><if condition="$u['providerpull'] eq 1"><span class='blue'>已寄出</span><else/>未寄出</if><else/>已寄出</if><else/>&nbsp;</if></td>
+		<td><if condition="$u['leaderverifystatus'] eq 1"><if condition="$u['ispullleader'] eq 1"><if condition="$u['providerpull'] eq 1"><if condition="$u['pullok'] eq 0"><a href="#" onclick="pullok({$u.onum})">未打样</a><else/>已打样</if><else>&nbsp;</if> <else/>已打样</if><else/>&nbsp;</if></td>
+		<td><if condition="$u['leaderverifystatus'] eq 1"><if condition="$u['pullok'] eq 1"><if condition="$u['providerok'] eq 1"><span class='blue'>已寄出</span><else/>未寄出</if><else/>&nbsp;</if><else/>&nbsp;</if></td>
+		<td><if condition="$u['leaderverifystatus'] eq 1"><if condition="$u['pullok'] eq 1"><if condition="$u['providerok'] eq 1"><if condition="$u['shopok'] eq 0"><a href="#" onclick="shopok({$u.onum})">未完成</a><else/>已完成</if><else/>&nbsp;</if><else/>&nbsp;</if><else/>&nbsp;</if></td>
+		<td><if condition="$u['shopok'] eq 1">{$u.okdate}<else/>&nbsp;</if></td>
+		<td>
+			<a href="{:U('Admin/Shopleader/readorder',array('unum'=>$osunum,'sid'=>$sid,'onum'=>$u['onum'],'ossname'=>$ossname))}" target="opt">读取&nbsp;</a>
+			<if condition="$u['leaderverifystatus'] eq 0"><a href="javascript:void(0)" onclick="deleteorder({$u.onum})">删除</a></if>
+			
+		</td>
+				
+	</tr>
+	</foreach>
+	</table>
+	<div align="center">
+	{$page}
+	</div>
+	
+		<!-- Modal 添加信息-->
+	<div class="modal fade" id="adduserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  >
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">添加订单</h4>
+	      </div>
+	      <div class="modal-body">
+	        <form id="form1" method='post' action="__URL__/orderinsert" class="form-horizontal">
+		
+		   <div class="form-group">
+			    <label for="usernum" class="col-sm-2 control-label">会员帐号:</label>
+			    <div class="col-sm-2 inputpadding">
+			      <input type="text" class="form-control " id="omnum" name="omnum"  placeholder="不能为空">
+			    </div>
+			     <label for="usernum" class="col-sm-2 control-label">会员姓名:</label>
+			    <div class="col-sm-2 inputpadding">
+			      <input type="text" class="form-control" id="omname" name="omname"  placeholder="不能为空">
+			    </div>
+			     <label for="username" class="col-sm-2 control-label">会员电话:</label>
+			    <div class="col-sm-2 inputpadding">
+			      <input type="text" class="form-control " id="omphone" name="omphone"  placeholder="不能为空">
+			    </div>
+		  </div>
+		  <hr/>
+		  <div class="form-group">
+			    <label for="usernum" class="col-sm-2 control-label">上衣款式:</label>
+			    <div class="col-sm-2 inputpadding">
+			     <select id="rolelimits" name="cloth" class="form-control">
+						<option value='0'>请选择款式==</option>
+						<foreach name='cloth' item='v'>
+						<option value='{$v['gid']}'>{$v.gnum}({$v.gname})</option>
+						</foreach>
+					</select>
+			    </div>
+			     <label for="usernum" class="col-sm-2 control-label">裤子款式:</label>
+			    <div class="col-sm-2 inputpadding">
+			     	<select id="rolelimits" name="pants" class="form-control">
+						<option value='0'>请选择款式==</option>
+						<foreach name='pants' item='v'>
+						<option value='{$v['gid']}'>{$v.gnum}({$v.gname})</option>
+						</foreach>
+					</select>
+			    </div>
+			     <label for="username" class="col-sm-2 control-label">背心款式:</label>
+			    <div class="col-sm-2 inputpadding">
+			      	<select id="rolelimits" name="vest" class="form-control">
+						<option value='0'>请选择款式==</option>
+						<foreach name='vest' item='v'>
+						<option value='{$v['gid']}'>{$v.gnum}({$v.gname})</option>
+						</foreach>
+					</select>
+			    </div>
+		  </div>
+		 
+		  <div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label"></label>
+				    <div class="col-sm-1 inputpadding">
+				      实际尺寸
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      完成尺寸
+				    </div>
+			     <label for="usernum" class="col-sm-2 control-label"></label>
+				    <div class="col-sm-1 inputpadding">
+				      实际尺寸
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      完成尺寸
+				    </div>
+			     
+		  </div>
+		  <div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">肩宽</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="ushoulderwidth1" name="ushoulderwidth1"  >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="ushoulderwidth2" name="ushoulderwidth2" >
+				    </div>
+			     <label for="usernum" class="col-sm-2 control-label">腰围</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dwaistsur1" name="dwaistsur1" >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dwaistsur2" name="dwaistsur2" >
+				    </div>
+			     <label for="username" class="col-sm-2 control-label">背心前长</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control " id="bfrontlength" name="bfrontlength" >
+				    </div>
+		  </div>
+		  <div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">袖长</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="usleevewidth1" name="usleevewidth1"  >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="usleevewidth2" name="usleevewidth2" >
+				    </div>
+			     <label for="usernum" class="col-sm-2 control-label">臀围</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dhipsur1" name="dhipsur1" >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dhipsur2" name="dhipsur2" >
+				    </div>
+			     <label for="username" class="col-sm-2 control-label">后长</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control " id="bbacklength" name="bbacklength" >
+				    </div>
+		  </div>
+		  <div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">衣长</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="uclothlength1" name="uclothlength1"  >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="uclothlength2" name="uclothlength2" >
+				    </div>
+			     <label for="usernum" class="col-sm-2 control-label">裤长</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dpantslength1" name="dpantslength1" >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dpantslength2" name="dpantslength2" >
+				    </div>
+			     <label for="username" class="col-sm-2 control-label">上</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control " id="bup" name="bup" >
+				    </div>
+		  </div>
+		 <div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">胸围</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="ubreathsur1" name="ubreathsur1"  >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="ubreathsur2" name="ubreathsur2" >
+				    </div>
+			     <label for="usernum" class="col-sm-2 control-label">上裆</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dupcrotch1" name="dupcrotch1" >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dupcrotch2" name="dupcrotch2" >
+				    </div>
+			     <label for="username" class="col-sm-2 control-label">中</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control " id="bcenter" name="bcenter" >
+				    </div>
+		  </div>
+
+		  <div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">腰围</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="uwaistsur1" name="uwaistsur1"  >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="uwaistsur2" name="uwaistsur2" >
+				    </div>
+			     <label for="usernum" class="col-sm-2 control-label">全裆</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dallcrotch1" name="dallcrotch1" >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dallcrotch2" name="dallcrotch2" >
+				    </div>
+			     <label for="username" class="col-sm-2 control-label">码数</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control " id="bcode" name="bcode" >
+				    </div>
+		  </div>
+			
+	    <div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">臀围</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="uhipsur1" name="uhipsur1"  >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="uhipsur2" name="uhipsur2" >
+				    </div>
+			     <label for="usernum" class="col-sm-2 control-label">腰下</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dwaistdown1" name="dwaistdown1" >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dwaistdown2" name="dwaistdown2" >
+				    </div>
+			     <label for="username" class="col-sm-2 control-label">布号</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control " id="bbackfabric" name="bbackfabric" >
+				    </div>
+		  </div>
+		  <div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">胸宽</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="ubreathwidth1" name="ubreathwidth1"  >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="ubreathwidth2" name="ubreathwidth2" >
+				    </div>
+			     <label for="usernum" class="col-sm-2 control-label">腿围</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dlegsur1" name="dlegsur1" >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dlegsur2" name="dlegsur2" >
+				    </div>
+			     <label for="username" class="col-sm-2 control-label">下单日期</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" onClick="WdatePicker()" class="form-control" id="bookdate" name="bookdate" placeholder="不能为空" >
+				    </div>
+		  </div>
+		  <div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">背宽</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="ubackwidth1" name="ubackwidth1"  >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control " id="ubackwidth2" name="ubackwidth2" >
+				    </div>
+			     <label for="usernum" class="col-sm-2 control-label">膝围</label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dkneesur1" name="dkneesur1" >
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="text" class="form-control" id="dkneesur2" name="dkneesur2" >
+				    </div>
+			     <label for="username" class="col-sm-2 control-label"></label>
+				    <div class="col-sm-2 inputpadding">
+				      
+				    </div>
+		  </div>
+		<div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">领围</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control " id="unecksur" name="unecksur"  >
+				    </div>
+				    
+			     <label for="usernum" class="col-sm-2 control-label">裤口</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control" id="dpantssur" name="dpantssur" >
+				    </div>
+				   
+			     <label for="username" class="col-sm-2 control-label"></label>
+				    <div class="col-sm-2 inputpadding">
+				     
+				    </div>
+		  </div>
+		 <div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">领型</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control " id="uneckstyle" name="uneckstyle"  >
+				    </div>
+				    
+			    <label for="usernum" class="col-sm-2 control-label"></label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="radio"  id="belly" name="belly" value='1' >&nbsp;<span>有肚</span>
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="radio"  id="sleg" name="sleg" value='1'>&nbsp;<span>S腿</span>
+				    </div>	
+				   
+			     <label for="username" class="col-sm-2 control-label"></label>
+				    <div class="col-sm-2 inputpadding">
+				     
+				    </div>
+		  </div>
+		 <div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">前襟</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control " id="ubosom" name="ubosom"  >
+				    </div>
+				    
+			    <label for="usernum" class="col-sm-2 control-label"></label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="radio"  id="upleg" name="upleg" value='1'>&nbsp;<span>翘腿</span>
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="radio"  id="flathip" name="flathip" value='1'>&nbsp;<span>平臀</span>
+				    </div>	
+			     <label for="username" class="col-sm-2 control-label"></label>
+				    <div class="col-sm-2 inputpadding">
+				     
+				    </div>
+		  </div>
+		 <div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">袖口</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control " id="usleevesur" name="usleevesur"  >
+				    </div>
+				     
+			    <label for="usernum" class="col-sm-2 control-label"></label>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="radio"  id="oleg" name="oleg" value='1' >&nbsp;<span>O腿</span>
+				    </div>
+				    <div class="col-sm-1 inputpadding">
+				      <input type="radio"  id="xleg" name="xleg" value='1'>&nbsp;<span>X腿</span>
+				    </div>	
+			     <label for="username" class="col-sm-2 control-label"></label>
+				    <div class="col-sm-2 inputpadding">
+				     
+				    </div>
+		  </div>
+		 <div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">码数</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control" id="ucode" name="ucode"  >
+				    </div>
+				    
+			     <label for="usernum" class="col-sm-2 control-label">码数</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control" id="dcode" name="dcode" >
+				    </div>
+				   
+			     <label for="username" class="col-sm-2 control-label"></label>
+				    <div class="col-sm-2 inputpadding">
+				      
+				    </div>
+		  </div>
+		<div class="form-group">
+			     <label for="usernum" class="col-sm-2 control-label">布号</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control " id="uclothfabric" name="uclothfabric"  >
+				    </div>
+				    
+			     <label for="usernum" class="col-sm-2 control-label">布号</label>
+				    <div class="col-sm-2 inputpadding">
+				      <input type="text" class="form-control" id="dpantsfabric" name="dpantsfabric" >
+				    </div>
+				    
+			     <label for="username" class="col-sm-2 control-label"></label>
+				    <div class="col-sm-2 inputpadding">
+				      
+				    </div>
+		  </div>
+
+		  
+		   <div class="modal-footer">
+		   	<input type='hidden',id='sid' name='sid' value='{$sid}'>
+		   	<input type='hidden',id='osunum' name='osunum' value='{$osunum}'>
+		   	<input type='hidden',id='ossname' name='ossname' value='{$ossname}'>
+		   	<input type="reset" class="btn btn-primary" name="Submit2" value="重 置">
+	       	<input type="submit" class="btn btn-primary" value="保 存" id="adduserbtn" name="adduserbtn">
+	      </div>
+		  
+		  </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<script>
+		
+	//处理打样接受
+	function pullok(onum){
+		alert("订单号为:"+onum);
+		if(confirm("确认完成打样？")){
+			
+		$.ajax({
+			type:"POST",
+			url:"__URL__/pullok/onum/"+onum,
+			success:function(data,textStatus,jqXHR){
+			alert("标记成功");
+				window.location.reload();
+
+			},
+			error:function(jqXHR,textStatus,errorThrown){
+				alert("标记失败");
+			}
+		})
+			
+		}
+		else{
+		
+			return;
+		}	
+	}
+	//处理成品接受
+	function shopok(onum){
+		alert("订单号为:"+onum);
+		if(confirm("确认完成订单？")){
+			
+		$.ajax({
+			type:"POST",
+			url:"__URL__/shopok/onum/"+onum,
+			success:function(data,textStatus,jqXHR){
+			alert("标记成功");
+				window.location.reload();
+
+			},
+			error:function(jqXHR,textStatus,errorThrown){
+				alert("标记失败");
+			}
+		})
+			
+		}
+		else{
+		
+			return;
+		}	
+	}
+	
+	function deleteorder(onum){
+		
+		if(confirm("确认删除")){
+			$.ajax({
+				type:"POST",
+				url:"__URL__/deleteorder/onum/"+onum,
+				success:function(data,textStatus,jqXHR){
+				alert("删除成功");
+					window.location.reload();
+	
+				},
+				error:function(jqXHR,textStatus,errorThrown){
+					alert("删除失败");
+				}
+			})
+				
+			}
+			else{
+			
+				return;
+			}
+	}
+			
+		function changebstatus(bnum){
+			if(confirm("确认标记")){
+			$.ajax({
+				type:"POST",
+				url:"__URL__/changebstatus/bnum/"+bnum,
+				success:function(data,textStatus,jqXHR){
+				alert("标记成功");
+					window.location.reload();
+
+				},
+				error:function(jqXHR,textStatus,errorThrown){
+					alert("标记失败");
+				}
+			})
+				
+			}
+			else{
+			
+				return;
+			}	
+		}
+		
+		$(function(){
+			$('#searchbtn').click(function(){
+				if($('#searchcontent').val() == ''){
+					alert('请输入查询内容');
+					return false;
+				}else{
+					$('#searchform').submit();
+				}
+										
+			});
+			
+		});
+		
+		$(function(){
+			$('#adduserModal').on('shown.bs.modal',function(e){
+			$('#adduserModal #usernum').focus();
+		});
+			$('#adduserbtn').click(function(){
+								
+				if($('#adduserModal #omnum').val() == ''||$('#adduserModal #omname').val() == ''||$('#adduserModal #omphone').val() == ''||$('#adduserModal #bookdate').val() == ''){
+					alert('缺少必填项！');
+					return false;
+				}
+										
+			});
+			
+		});
+		
+		
+	
+
+		$(function(){
+			$('#dg').datagrid({
+		       fitColumns:true,
+				rownumbers:true,
+				singleSelect:true,
+				autoRowHeight:false,
+				
+			  columns:[[
+	           
+				{field:'onum',title:"订单号",width:50},
+		        {field:'omnum',title:'会员帐号',width:40},
+		        {field:'omname',title:"会员姓名",width:30},
+		        {field:'omphone',title:"会员电话",width:40},
+		       
+		        {field:'ougname',title:'上衣款式',width:50}, 
+		      			       
+		        {field:'odgname',title:'裤子款式',width:50},
+		      
+		        {field:'obgname',title:'背心款式',width:50},
+		      
+		        {field:'osunum',title:'接待员工号',width:40},
+		        {field:'bookdate',title:'下单日期',width:50},
+		        {field:'leaderverifystatus',title:'店长审核状态',width:40},
+		        {field:'ispullleader',title:'店长意见',width:30},
+		        {field:'providerpull',title:'样本收发',width:30},
+		        {field:'pullok',title:'打样状态',width:30},
+		        {field:'providerok',title:'成品收发',width:30},
+		        {field:'shopok',title:'订单最终状态',width:35},
+		        {field:'okdate',title:'完成日期',width:50},
+		        {field:'ss',title:'操作',width:40},
+		   	  ]]
+			});
+		});
+	</script>
+</body>
+</html>

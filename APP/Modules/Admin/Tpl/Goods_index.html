@@ -47,13 +47,22 @@
 	<div style="margin:10px 0;"></div>
 	
 	
+<<<<<<< HEAD
 	<table id="dg" title="学生信息列表" style="width:1100px;height:308px" >
+=======
+	<table id="dg" title="商品信息列表" style="width:1100px;height:308px" >
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 	<foreach name='goods' item='u'>
 	<tr>
 		<td>{$u.gid}</td>
 		<td>{$u.gnum}</td>
 		<td>{$u.gname}</td>
+<<<<<<< HEAD
 		<td><if condition="$u['gclass'] eq 1">上衣<elseif condition="$u['gclass'] eq 2"/>裤子<else/>鞋子</if></td>
+=======
+		<td>{$u.gprice}</td>
+		<td><if condition="$u['gclass'] eq 1">上衣<elseif condition="$u['gclass'] eq 2"/>裤子<else/>背心</if></td>
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 		<td><a href="{:U('Admin/Goods/shoplist',array('gid'=>$u['gid']))}">分配管理</a></td>
 		<td><if condition="$u['gstatus'] eq 1">开启<else/>关闭</if></td>
 		<td>
@@ -90,11 +99,24 @@
 				    </div>
 			  </div>
 			  <div class="form-group">
+<<<<<<< HEAD
+=======
+				    <label for="usernum" class="col-sm-2 control-label">商品价格</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="gprice" name="gprice"  placeholder="不能为空">
+				    </div>
+			  </div>
+			  <div class="form-group">
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 				    <label for="usersex" class="col-sm-2 control-label">种类</label>
 				    <div class="col-sm-10">
 				     <input type="radio"   name="gclass" value='1' checked="checked" style="width: 50px"/>&nbsp;&nbsp;上衣&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio"     name="gclass" value='2' style="width: 50px"/>&nbsp;&nbsp;裤子
+<<<<<<< HEAD
 					<input type="radio"     name="gclass" value='3' style="width: 50px"/>&nbsp;&nbsp;鞋子
+=======
+					<input type="radio"     name="gclass" value='3' style="width: 50px"/>&nbsp;&nbsp;背心
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 				    </div>
 	 		  </div>
 	      
@@ -134,12 +156,25 @@
 			      <input type="text" class="form-control" id="gname" name="gname"  placeholder="不能为空">
 			    </div>
 		  </div>
+<<<<<<< HEAD
+=======
+		  <div class="form-group">
+			    <label for="username" class="col-sm-2 control-label">商品价格</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" id="gprice" name="gprice"  placeholder="不能为空">
+			    </div>
+		  </div>
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
  		  <div class="form-group">
 			    <label for="usersex" class="col-sm-2 control-label">种类</label>
 			    <div class="col-sm-10">
 			      	<input type="radio"   name="gclass" value='1' checked="checked" style="width: 50px"/>&nbsp;&nbsp;上衣&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio"   name="gclass" value='2' style="width: 50px"/>&nbsp;&nbsp;裤子
+<<<<<<< HEAD
 					<input type="radio"   name="gclass" value='3' style="width: 50px"/>&nbsp;&nbsp;鞋子
+=======
+					<input type="radio"   name="gclass" value='3' style="width: 50px"/>&nbsp;&nbsp;背心
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 			    </div>
 		  </div> 
 		 
@@ -204,7 +239,11 @@
 		});
 			$('#adduserbtn').click(function(){
 								
+<<<<<<< HEAD
 				if($('#adduserModal #gnum').val() == '' || $('#adduserModal #gname').val() == ''){
+=======
+				if($('#adduserModal #gnum').val() == '' || $('#adduserModal #gname').val() == ''|| $('#adduserModal #gprice').val() == ''){
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 					alert('每个单元都不能为空！');
 					return false;
 				}
@@ -290,6 +329,10 @@
 				{field:'gid',hidden:true},
 				{field:'gnum',title:"商品编号",width:30},
 		        {field:'gname',title:'商品名称',width:80},
+<<<<<<< HEAD
+=======
+		        {field:'gprice',title:'商品参考价格',width:30},
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 		        {field:'gclass',title:"商品种类",width:40},
 		        {field:'gshop',title:"分配管理",width:20},
 		        {field:'gstatus',title:"状态",width:20},

@@ -21,6 +21,10 @@ class GoodsAction extends CommonAction{
 				$receive=array(
 				'gnum'=>$_POST['gnum'],
 				'gname'=>$_POST['gname'],
+<<<<<<< HEAD
+=======
+				'gprice'=>$_POST['gprice'],
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 				'gclass'=>$_POST['gclass'],
 				'gstatus'=>'1',
 			
@@ -45,6 +49,10 @@ class GoodsAction extends CommonAction{
 				'gid'=>$_POST['gid'],
 				'gnum'=>$_POST['gnum'],
 				'gname'=>$_POST['gname'],
+<<<<<<< HEAD
+=======
+				'gprice'=>$_POST['gprice'],
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 				'gclass'=>$_POST['gclass'],
 				'gstatus'=>$_POST['gstatus'],
 								
@@ -96,7 +104,11 @@ class GoodsAction extends CommonAction{
 			$this->page = $page->show ();
 			$this->goods = $goods;
 			
+<<<<<<< HEAD
 			$this->display();
+=======
+			$this->display('index');
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 		
 		}
 	}

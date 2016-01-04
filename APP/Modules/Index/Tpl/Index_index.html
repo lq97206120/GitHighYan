@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Insert title here</title>
+<title>海彦男仕礼服</title>
 <link rel="stylesheet" href="__PUBLIC__/Css/common.css"/>
 <link rel="stylesheet" href="__PUBLIC__/Css/index.css"/>
 <script type="text/javascript" src="__PUBLIC__/Js/jquery-1.7.2.min.js"></script>
@@ -28,29 +28,20 @@
 <body>
 	<div id="main">
 		<div class="title">
-			<img src="__PUBLIC__/Images/top.gif"/>
+		
 		</div>
 		<nav>
 			<a href="#" id="menuIcon">Ξ</a><!#表示浏览器不会跳转，仍然停留在该页面>
 			<ul>
+				<foreach name='menu' item='v'>
+					<li>
+						<a href="{:U(GROUP_NAME.'/Index/index',array('mid'=>$v['mid']))}">{$v.mname}</a>
+					</li>
+				</foreach>
 				<li>
-					<a href="{:U(GROUP_NAME.'/Index/index')}">首页</a>
+					<a href="{:U(GROUP_NAME.'/Index/book')}">我要预约</a>
 				</li>
-				<li>
-				    <a href="{:U(GROUP_NAME.'/Index/jiehunji')}">结婚季</a>
-				</li>
-				<li>
-					<a href="{:U(GROUP_NAME.'/Index/youxiuanli')}">优秀案例</a>
-				</li>
-				<li>
-					<a href="{:U(GROUP_NAME.'/Index/chanpinxilie')}">产品系列</a>
-				</li>
-				<li>
-					<a href="{:U(GROUP_NAME.'/Index/gongyizhanshi')}">工艺展示</a>
-				</li>
-				<li>
-					<a href="{:U(GROUP_NAME.'/Index/contactUs')}">联系我们</a>
-				</li>
+<<<<<<< HEAD
 				<!-- 	<li>
 					<a href="{:U(GROUP_NAME.'/Login/index')}">会员中心</a>
 				</li> -->
@@ -85,6 +76,13 @@
 			</ul>
 			</div>
 			<img src="__PUBLIC__/Images/index_jiehunji.gif">
+=======
+				
+			</ul>
+		</nav>
+		<div class="content">
+			{$singlemenu['mcontent']}
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 		</div>
 		<footer>
 			<img src="__PUBLIC__/Images/bottomNew.gif">

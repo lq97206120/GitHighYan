@@ -7,9 +7,15 @@ class UserAction extends CommonAction{
 	$this->shops=M('shop')->select();
 	import("ORG.Util.Page");
 	$count=D('UserRelation')->relation(true)->count();
+<<<<<<< HEAD
 	$page=new Page($count,13);
 	$limit = $page->firstRow . ',' . $page->listRows;
 	$user=D('UserRelation')->relation(true)->limit($limit)->select();
+=======
+	$page=new Page($count,12);
+	$limit = $page->firstRow . ',' . $page->listRows;
+	$user=D('UserRelation')->relation(true)->order('unum')->limit($limit)->select();
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 	$user=user_manyone($user);//消除数组
 	$this->user=$user;
 	$this->page = $page->show ();
@@ -21,7 +27,15 @@ class UserAction extends CommonAction{
 			if (! empty ( $uid )) {
 				$user = M ( "user" );
 				$result = $user->delete ( $uid );
+<<<<<<< HEAD
 				if (false !== $result) {
+=======
+				//清空role_user中的记录
+				$deleteroleResult=M('role_user')->where(array('user_id'=>$uid))->delete();
+				//清空shop_user中的记录
+				$deleteshopResult=M('shop_user')->where(array('user_id'=>$uid))->delete();
+				if (false !== $roleResult||$shopResult||$result) {
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 					
 				} else {
 					$this->error ( '删除出错！' );
@@ -133,10 +147,17 @@ class UserAction extends CommonAction{
 			if($searchcondition=="unum"||$searchcondition=="uname"||$searchcondition=="uphone"||$searchcondition=="ustatus"||$searchcondition=="umale"){
 				$condition[$searchcondition] = array('like','%'.$searchcontent.'%');
 				$count = D( 'UserRelation' )->where($condition)->count ();
+<<<<<<< HEAD
 				$page = new Page ( $count, 13 );
 				$limit = $page->firstRow . ',' . $page->listRows;
 				
 				$user = D ( 'UserRelation' )->relation(true)->where($condition)->limit ( $limit )->order('unum desc')->select ();
+=======
+				$page = new Page ( $count, 12 );
+				$limit = $page->firstRow . ',' . $page->listRows;
+				
+				$user = D ( 'UserRelation' )->relation(true)->where($condition)->order('unum')->limit ( $limit )->order('unum desc')->select ();
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 				
 				$user=user_manyone($user);
 				
@@ -144,7 +165,11 @@ class UserAction extends CommonAction{
 				$this->user = $user;
 				$this->roles=M('role')->select();//列出角色表
 				$this->shops=M('shop')->select();
+<<<<<<< HEAD
 				$this->display();
+=======
+				$this->display('index');
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 			}else{
 				
 			//处理role与shop
@@ -157,13 +182,21 @@ class UserAction extends CommonAction{
 					
 					}
 					$count =$m;
+<<<<<<< HEAD
 					$page = new Page ( $m, 13 );
+=======
+					$page = new Page ( $m, 12 );
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 					$limit = $page->firstRow . ',' . $page->listRows;
 					$this->page = $page->show ();
 					$this->user = $role;
 					$this->roles=M('role')->select();//列出角色表
 					$this->shops=M('shop')->select();
+<<<<<<< HEAD
 					$this->display();
+=======
+					$this->display('index');
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 					
 					
 				}elseif($searchcondition=="shop"){
@@ -172,13 +205,21 @@ class UserAction extends CommonAction{
 										
 				}
 					$count = $n;
+<<<<<<< HEAD
 					$page = new Page ( $n, 13 );
+=======
+					$page = new Page ( $n, 12 );
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 					$limit = $page->firstRow . ',' . $page->listRows;
 					$this->page = $page->show ();
 					$this->user = $shop;
 					$this->roles=M('role')->select();//列出角色表
 					$this->shops=M('shop')->select();
+<<<<<<< HEAD
 					$this->display();
+=======
+					$this->display('index');
+>>>>>>> 855e70bb320f20b9fb05518accacd719e63f1af8
 				
 			}
 
