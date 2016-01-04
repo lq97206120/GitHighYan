@@ -1,0 +1,74 @@
+@CHARSET "UTF-8";
+/*content*/
+.content  div{
+		coclor:#eeeeee;
+		    text-align:center;
+		   
+		}
+
+/*content container  地图*/
+
+#container{
+width:100%;
+height:300px;
+font: 1.0em  Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei','微软黑体', Arial;
+}
+
+.info-title{
+        color: white;
+        font-size: 1.2em;
+        background-color: rgba(0,155,255,0.8);
+        line-height: 4vmin;
+        padding: 0px;
+        font-weight: lighter;
+    letter-spacing: 1vmin;
+      }
+      .info-content{
+
+        color: #666666;
+        line-height: 3vmin;
+      }
+      .info-content img{
+      width:12vmin;
+      height:10vmin;
+        float: left;
+      }
+     
+      /* Custom Styles 
+      附加导航栏
+      */
+
+    .content ul.nav-tabs{
+        width:20vmin;
+        margin-top: 1vmin;
+        border-radius: 1vmin;
+        border: 1px solid #ddd;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+    }
+    .content ul.nav-tabs li{
+        margin: 0;
+        border:2px;
+        border-top: 1px solid #ddd;
+    }
+   .content ul.nav-tabs li:first-child{
+        border-top: none;
+    }
+   .content ul.nav-tabs li a{
+        margin: 0;
+        padding: 8px 16px;
+        border-radius: 0;
+    }
+   .content ul.nav-tabs li.active a, ul.nav-tabs li.active a:hover{
+        color: #fff;
+        background: #0088cc;
+        border: 1px solid #0088cc;
+    }
+   .content ul.nav-tabs li:first-child a{
+        border-radius: 4px 4px 0 0;
+    }
+   .content ul.nav-tabs li:last-child a{
+        border-radius: 0 0 4px 4px;
+    }
+   .content ul.nav-tabs.affix{
+        top: 2vmin; /* Set the top position of pinned element */
+    } 

@@ -50,13 +50,20 @@
 				<li>
 					<a href="<?php echo U(GROUP_NAME.'/Index/contactUs');?>">联系我们</a>
 				</li>
-				<li>
-					<a href="<?php echo U(GROUP_NAME.'/Index/vipUser');?>">会员中心</a>
-				</li>
+					<!-- 	<li>
+					<a href="<?php echo U(GROUP_NAME.'/Login/index');?>">会员中心</a>
+				</li> -->
 			</ul>
 		</nav>
 		<div class="content">
-			<img src="__PUBLIC__/Images/chanpinxilie.gif">
+			<ul>
+			<li><a href="#"><img src="__PUBLIC__/Images/cpxl_cword.gif"></a></li>
+			<li><a href="#"><img src="__PUBLIC__/Images/cpxl_yingqu.gif"></a></li>
+			<li><a href="#"><img src="__PUBLIC__/Images/cpxl_zhengshi.gif"></a></li>
+			<li><a href="#"><img src="__PUBLIC__/Images/cpxl_jingjiu.gif"></a></li>
+			<li><a href="#"><img src="__PUBLIC__/Images/cpxl_zhangbei.gif"></a></li>
+			<li></li>
+			</ul>
 		</div>
 		<footer>
 			<img src="__PUBLIC__/Images/bottomNew.gif">

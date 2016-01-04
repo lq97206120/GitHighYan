@@ -9,11 +9,10 @@
     <script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="__PUBLIC__/js/user.js"></script>
     <script type="text/javascript">
-   			var verifyUrl =  '<?php echo U("Admin/Login/verify",'','');?>';
-   			var indexUrl = '<?php echo U("Home/Index/index",'','');?>';
-   			var loginUrl = '<?php echo U("Home/Index/login",'','');?>';
-   			var homeindexUrl = '<?php echo U("Home/Home/index","","" );?>';
-   			var adminindexUrl = '<?php echo U("Admin/Index/index","","" );?>';
+   			var verifyUrl='<?php echo U("Admin/Login/verify",'','');?>';
+   			var loginindexUrl='<?php echo U("Admin/Login/index",'','');?>';
+   			var loginloginUrl='<?php echo U("Admin/Login/login",'','');?>';
+   			var indexUrl='<?php echo U("Admin/Index/index",'','');?>';
            
     </script>
 </head>

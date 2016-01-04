@@ -23,4 +23,9 @@ class IndexAction extends Action{
 	public function vipUser(){
 		$this->display();
 	}
+	
+	//预约
+	public function appoint(){
+		$this->display();
+	}
 }

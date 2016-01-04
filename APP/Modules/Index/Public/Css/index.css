@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+/*content*/
+.content ul{
+	width:100%;
+	}
+.content  ul li{
+	float:left;
+	display:inline;
+	width:25%;
+		}
